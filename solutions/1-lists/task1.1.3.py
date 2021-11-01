@@ -5,7 +5,7 @@ def anagram(a, b):
     a = "".join(a_sorted)
     b_sorted = sorted(b)
     b = "".join(b_sorted)
-    return (a == b)
+    return a == b
 
 
 print(anagram("AbCd", "AABb"))
