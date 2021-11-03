@@ -1,8 +1,10 @@
+# TODO fix iterate 
+
 def iterate(func):
     answer = lambda func: func
     while True:
         yield answer
-        answer = (lambda x, func = func: func(x))
+        answer = lambda answer = answer, func = func: func(answer)
 
 def double(x):
     return 2 * x

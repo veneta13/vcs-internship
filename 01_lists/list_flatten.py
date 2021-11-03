@@ -1,4 +1,7 @@
+# TODO flatten definition
+
 import collections
+import itertools
 
 """
 Task: Fill replace the ??? and define the flatten function

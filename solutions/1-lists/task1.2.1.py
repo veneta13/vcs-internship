@@ -9,5 +9,6 @@ def groupby(func, seq):
                 dictionary[func(x)].append(x)
         else:
             dictionary[func(x)] = x
+    return dictionary
 
-groupby(lambda x: x % 2, [0, 1, 2, 3, 4, 5, 6, 7])
+print(groupby(lambda x: x % 2, [0, 1, 2, 3, 4, 5, 6, 7]))
