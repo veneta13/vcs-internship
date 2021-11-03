@@ -7,10 +7,10 @@ def zip_with(func, *iterables):
                 args = list()
                 for element in iterables:
                     args.append(element[i])
-                yield concat3(*args)
+                yield func(*args)
 
 def concat3(x, y, z):
-        return x + y + z
+    return x + y + z
 
 gen1 = zip_with(concat3, ('1', '2', '3', '4', '5'), ('1', '2'), ('1', '2', '3', '4', '5', '6'))
 print(next(gen1))

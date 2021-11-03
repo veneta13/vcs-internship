@@ -1,6 +1,5 @@
 def groupby(func, seq):
     dictionary = {}
-    dictionary.values
     for x in seq:
         if func(x) in dictionary:
             if type(dictionary[func(x)]) != list:

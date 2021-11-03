@@ -4,7 +4,7 @@ def iterate(func):
     answer = lambda func: func
     while True:
         yield answer
-        answer = lambda answer = answer, func = func: func(answer)
+        answer = func(func)
 
 def double(x):
     return 2 * x
