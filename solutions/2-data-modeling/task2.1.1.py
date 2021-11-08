@@ -3,9 +3,8 @@ def accepts(*types):
         def wrapper(*args):
             for arg, type in zip(args, types):
                 if not isinstance(arg, type):
-                    raise TypeError("Argument {} of is not {}".format(arg, type))
-            function(*args)
-        wrapper = function
+                    raise TypeError("Argument {} of {} is not {}!".format(args.index(arg) + 1, function.__name__ ,type.__name__))
+            return function(*args)
         return wrapper
     return inner_function
  

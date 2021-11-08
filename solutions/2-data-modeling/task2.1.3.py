@@ -13,7 +13,7 @@ def encrypt(key):
                 else:
                     new_text += character
             return new_text
-        wrapper = function
+        wrapper.__name__ = function.__name__ # to print the function name in file
         return wrapper
     return inner_function
 
