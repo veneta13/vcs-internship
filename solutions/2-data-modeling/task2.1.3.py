@@ -1,11 +1,9 @@
 # TODO preferably import encrypt from task2.1.2
 
-from functools import wraps
 from datetime import datetime
 
 def encrypt(key):
     def inner_function(function):
-        @wraps(function)
         def wrapper():
             text = function()
             new_text = ""
@@ -17,18 +15,21 @@ def encrypt(key):
                 else:
                     new_text += character
             return new_text
+        wrapper.__name__ = function.__name__
+        wrapper.__doc__ = function.__doc__
         return wrapper
     return inner_function
 
 def log(file_name):
         def inner_function(function):
-            @wraps(function)
             def wrapper():
                 text = function()
                 file = open(file_name, "a")
                 file.write("{} was called at {} \n".format(function.__name__, datetime.now()))
                 file.close()
                 return text
+            wrapper.__name__ = function.__name__
+            wrapper.__doc__ = function.__doc__
             return wrapper
         return inner_function
 

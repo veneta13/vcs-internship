@@ -1,8 +1,5 @@
-from functools import wraps
-
 def encrypt(key):
     def inner_function(function):
-        @wraps(function)
         def wrapper():
             text = function()
             new_text = ""
@@ -14,6 +11,8 @@ def encrypt(key):
                 else:
                     new_text += character
             return new_text
+        wrapper.__name__ = function.__name__
+        wrapper.__doc__ = function.__doc__
         return wrapper
     return inner_function
 

@@ -1,10 +1,8 @@
 import time
 from datetime import datetime
-from functools import wraps
 
 def performance(file_name):
     def inner_function(function):
-        @wraps(function)
         def wrapper():
             
             start_time = datetime.now()
@@ -16,6 +14,8 @@ def performance(file_name):
             file.close()
             
             return text
+        wrapper.__name__ = function.__name__
+        wrapper.__doc__ = function.__doc__
         return wrapper
     return inner_function
 
