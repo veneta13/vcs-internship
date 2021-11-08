@@ -25,8 +25,8 @@ Hint: use list comprehension + recursion
 """
 
 
-def flatten(xs):
-    pass
+def flatten(xs):    
+    return  [item for x in xs for item in (flatten(x) if type(x) == list else [x])]
 
 
 if __name__ == "__main__":
