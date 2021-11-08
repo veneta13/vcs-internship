@@ -11,8 +11,6 @@ def encrypt(key):
                 else:
                     new_text += character
             return new_text
-        wrapper.__name__ = function.__name__
-        wrapper.__doc__ = function.__doc__
         return wrapper
     return inner_function
 

@@ -1,5 +1,3 @@
-# TODO preferably import encrypt from task2.1.2
-
 from datetime import datetime
 
 def encrypt(key):
@@ -15,8 +13,7 @@ def encrypt(key):
                 else:
                     new_text += character
             return new_text
-        wrapper.__name__ = function.__name__
-        wrapper.__doc__ = function.__doc__
+        wrapper = function
         return wrapper
     return inner_function
 
@@ -28,8 +25,6 @@ def log(file_name):
                 file.write("{} was called at {} \n".format(function.__name__, datetime.now()))
                 file.close()
                 return text
-            wrapper.__name__ = function.__name__
-            wrapper.__doc__ = function.__doc__
             return wrapper
         return inner_function
 

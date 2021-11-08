@@ -7,15 +7,13 @@ def performance(file_name):
             
             start_time = datetime.now()
             text = function()
-            time_needed = datetime.now() - start_time
+            time_needed = (datetime.now() - start_time).total_seconds()
             
             file = open(file_name, "a")
-            file.write("{} was called and took {} to complete \n".format(function.__name__, time_needed))
+            file.write("{} was called and took {} seconds to complete \n".format(function.__name__, time_needed))
             file.close()
             
             return text
-        wrapper.__name__ = function.__name__
-        wrapper.__doc__ = function.__doc__
         return wrapper
     return inner_function
 
