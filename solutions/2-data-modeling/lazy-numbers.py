@@ -20,10 +20,7 @@ class Lazy:
         return temp
     
     def __radd__(self, other):
-        temp = Lazy(operator.add)
-        temp.left = self
-        temp.right = other
-        return temp
+        return self + other
     
     def __sub__(self, other):
         temp = Lazy(operator.sub)
@@ -44,10 +41,7 @@ class Lazy:
         return temp
     
     def __rmul__(self, other):
-        temp = Lazy(operator.mul)
-        temp.left = self
-        temp.right = other
-        return temp    
+        return self * other 
 
     def __pow__(self, other):
         temp = Lazy(operator.pow)
