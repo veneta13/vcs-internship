@@ -14,7 +14,9 @@ class LinkedListIterator:
             return item
 
     def next(self):
-        return self.current.next.data
+        item = self.current
+        self.current = self.current.next
+        return LinkedListIterator(item).__next__()
 
 class Cons:
     
@@ -23,30 +25,29 @@ class Cons:
         self.next = next
 
     def __getitem__(self, key):
-        itemCount = self.__countItems()
-        
-        if key < 0:
-            key = itemCount + key
-        if key >= itemCount:
-            raise IndexError("Index out of range")
-        
         current = self
         counter = 0
-        while counter != key:
-            current = current.next
-            counter += 1
-        return current.data
-
+        
+        if key < 0:
+            temp_list = list()
+            while current.data is not None:
+                temp_list.append(current)
+                current = current.next
+            return temp_list[key].data
+        else:
+            while counter != key and current is not None:
+                current = current.next
+                counter += 1
+            if current is None:
+                raise IndexError("Index out of range")
+            else:
+                return current.data
+            
     def __iter__(self):
         return LinkedListIterator(self)
-
-    def __countItems(self):
-        current = self
-        counter = 1
-        while current.next.data is not None:
-            current = current.next
-            counter += 1
-        return counter
+    
+    def next(self):
+        return self.next
 
 nil = Cons(None)
 
@@ -57,25 +58,26 @@ def make_list(*items):
         current.next = following
     return cons_list[0]
 
-# l = Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, nil)))))
-# print("l[4] = ", l[4])
-# print("l[0] = ", l[0])
-# print("l[-4] = ", l[-4])
+l = Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, nil)))))
+print("l[4] = ", l[4])
+print("l[0] = ", l[0])
+print("l[-1] = ", l[-1])
 
-# myiter = iter(l)
-# print("myiter.next() = ", myiter.next())
+myiter = iter(l)
+print("myiter.next() = ", myiter.next())
+print("myiter.next() = ", myiter.next())
 
-# print("next(myiter) = " ,next(myiter))
-# print("next(myiter) = " ,next(myiter))
+print("next(myiter) = " ,next(myiter))
+print("next(myiter) = " ,next(myiter))
 
-# l_iter_list = [li + 1 for li in l]
-# print("l iter list:", l_iter_list)
+l_iter_list = [li + 1 for li in l]
+print("l iter list:", l_iter_list)
 
-# m = make_list(1, 2, 3, 4, 5)
-# print("m[1] = ", m[1])
-# print("m[-1] = ", m[-1])
-# m_iter_list = [li + 1 for li in m]
-# print("m iter list:", m_iter_list)
+m = make_list(1, 2, 3, 4, 5)
+print("m[1] = ", m[1])
+print("m[-1] = ", m[-1])
+m_iter_list = [li + 1 for li in m]
+print("m iter list:", m_iter_list)
 
 """
 Create a linked list with idiomatic python interface
