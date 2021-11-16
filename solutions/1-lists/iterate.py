@@ -1,7 +1,11 @@
 from functools import reduce
 
+def compose2(func1, func2):
+    return lambda *args: func1(func2(*args))
+
 def compose(*funcs):
-    return reduce(lambda func1, func2: lambda *args: func1(func2(*args)), funcs)
+    composition = lambda func1, func2: compose2(func1, func2)
+    return reduce(composition, funcs)
 
 def iterate(func):
     answer = lambda func: func
