@@ -16,7 +16,7 @@ class LinkedListIterator:
     def next(self):
         item = self.current
         self.current = self.current.next
-        return LinkedListIterator(item).__next__()
+        return item.data
 
 class Cons:
     
@@ -26,22 +26,11 @@ class Cons:
 
     def __getitem__(self, key):
         current = self
-        counter = 0
-        
-        if key < 0:
-            temp_list = list()
-            while current.data is not None:
-                temp_list.append(current)
-                current = current.next
-            return temp_list[key].data
-        else:
-            while counter != key and current is not None:
-                current = current.next
-                counter += 1
-            if current is None:
-                raise IndexError("Index out of range")
-            else:
-                return current.data
+        temp_list = list()
+        while current.data is not None:
+            temp_list.append(current)
+            current = current.next
+        return temp_list[key].data
             
     def __iter__(self):
         return LinkedListIterator(self)
