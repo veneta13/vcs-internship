@@ -1,11 +1,9 @@
-from functools import reduce
-
-def compose2(func1, func2):
-    return lambda *args: func1(func2(*args))
-
 def compose(*funcs):
-    composition = lambda func1, func2: compose2(func1, func2)
-    return reduce(composition, funcs)
+    if funcs:
+        tail = compose(*funcs[1:])
+        return lambda arg: funcs[0](tail(arg))
+    else:
+        return lambda func: func
 
 def iterate(func):
     answer = lambda func: func
