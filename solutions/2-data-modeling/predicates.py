@@ -38,53 +38,6 @@ class Predicate:
     
     def __rshift__(self, other):
         return lambda x: True if not(self(x)) or other(x) else False
-    
-class GreaterThan(Predicate):
-    def __init__(self):
-        self.funcs = lambda x: True if x > self.arg else False
-    
-    def __call__(self, arg):
-        self.arg = arg
-        return Predicate(self.funcs)
-
-class LessThan(Predicate): 
-    def __init__(self):
-        self.funcs = lambda x: True if x < self.arg else False
-    
-    def __call__(self, arg):
-        self.arg = arg
-        return Predicate(self.funcs)
-
-class EqualTo(Predicate): 
-    def __init__(self):
-        self.funcs = lambda x: True if x == self.arg else False
-    
-    def __call__(self, arg):
-        self.arg = arg
-        return Predicate(self.funcs)
-
-class OfType(Predicate): 
-    def __init__(self):
-        self.funcs = lambda x: True if isinstance(x, self.arg) else False
-    
-    def __call__(self, arg):
-        self.arg = arg
-        return Predicate(self.funcs)
-    
-class Present(Predicate): 
-    def __init__(self):
-        self.funcs = lambda x: True if x is not None else False
-    
-    def __call__(self):
-        return Predicate(self.funcs)
-
-class Pred(Predicate): 
-    def __init__(self):
-        self.funcs = lambda x: True if self.arg(x) == True else False
-    
-    def __call__(self, arg):
-        self.arg = arg
-        return Predicate(self.funcs)
 
 def for_any(*other):
     return lambda x: True if any(func(x) == True for func in other) else False
@@ -92,26 +45,17 @@ def for_any(*other):
 def for_all(*other):
     return lambda x: True if all(func(x) == True for func in other) else False
 
-oftype = OfType()
-oftype1 = OfType()
-oftype2 = OfType()
-oftype3 = OfType()
-gt = GreaterThan()
-lt = LessThan()
-eq0 = EqualTo()
-eq1 = EqualTo()
-eq2 = EqualTo()
-pred = Pred()
+gt = lambda y: lambda x: True if x > y else False
+lt = lambda y: lambda x: True if x < y else False
+eq = lambda y: lambda x: True if x == y else False
+oftype = lambda t: lambda x: True if isinstance(x, t) else False
+present = lambda: lambda x: True if x is not None else False
+pred = lambda func: lambda x: True if func(x) == True else False
 
-digit = oftype(int) & gt(-1) & lt(10)
-binary = eq0(0) | eq1(1)
-number = for_any(oftype1(int), oftype2(float), oftype3(complex))
-is_the_empty_string = pred(lambda x: x is "")
-is_not_2 = ~eq2(2)
+gr_0 = Predicate(gt(0))
+gr_5 = Predicate(gt(5))
+is_int = Predicate(oftype(int))
 
-print(digit(-0.2))
-print(binary(3))
-print(number(5))
-print(number(5))
-print(is_the_empty_string(""))
-print(is_not_2(3))
+g3 = Predicate()
+g3 = gr_0 & gr_5 & is_int
+print(g3(6))
