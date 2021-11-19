@@ -1,15 +1,15 @@
-def compose(*funcs):
-    if funcs:
-        tail = compose(*funcs[1:])
-        return lambda arg: funcs[0](tail(arg))
-    else:
-        return lambda func: func
+def identity(x):
+    return x
+
+def compose(f, g):
+    return lambda x: g(f(x))
 
 def iterate(func):
-    answer = lambda func: func
+    current_func = identity
+    
     while True:
-        yield answer
-        answer = compose(func, answer)
+        yield current_func
+        current_func = compose(current_func, func)
 
 def double(x):
     return 2 * x
