@@ -1,9 +1,10 @@
 def triangle_type(a, b, c):
-    if a == b and b == c: 
+
+    if a == b and b == c:
         return "равностранен"
     elif a == b or b == c or c == a:
         return "равнобедрен"
-    else: 
+    else:
         return "разностранен"
 
 

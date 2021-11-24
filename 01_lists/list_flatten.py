@@ -1,8 +1,5 @@
 # TODO flatten definition
 
-import collections
-import itertools
-
 """
 Task: Fill replace the ??? and define the flatten function
 >>> a = [[1, 2], [3, 4], [5, 6]]
@@ -25,8 +22,8 @@ Hint: use list comprehension + recursion
 """
 
 
-def flatten(xs):    
-    return  [item for x in xs for item in (flatten(x) if type(x) == list else [x])]
+def flatten(xs):
+    return[i for x in xs for i in (flatten(x) if type(x) == list else [x])]
 
 
 if __name__ == "__main__":

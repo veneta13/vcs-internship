@@ -12,9 +12,11 @@ def encrypt(key):
         return lambda x = new_text: x
     return inner_function
 
+
 @encrypt(2)
 def get_low():
     return "Get get get low"
+
 
 print(get_low())
 # Igv igv igv nqy

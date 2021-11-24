@@ -18,9 +18,10 @@ class LinkedListIterator:
         self.current = self.current.next
         return item.data
 
+
 class Cons:
-    
-    def __init__(self, data, next = None):
+
+    def __init__(self, data, next=None):
         self.data = data
         self.next = next
 
@@ -31,11 +32,13 @@ class Cons:
             temp_list.append(current)
             current = current.next
         return temp_list[key].data
-            
+
     def __iter__(self):
         return LinkedListIterator(self)
 
+
 nil = Cons(None)
+
 
 def make_list(*items):
     cons_list = [Cons(item) for item in items]
@@ -44,20 +47,21 @@ def make_list(*items):
         current.next = following
     return cons_list[0]
 
-# l = Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, nil)))))
-# print("l[4] = ", l[4])
-# print("l[0] = ", l[0])
-# print("l[-1] = ", l[-1])
 
-# myiter = iter(l)
+# li = Cons(1, Cons(2, Cons(3, Cons(4, Cons(5, nil)))))
+# print("li[4] = ", li[4])
+# print("li[0] = ", li[0])
+# print("li[-1] = ", li[-1])
+
+# myiter = iter(li)
 # print("myiter.next() = ", myiter.next())
 # print("myiter.next() = ", myiter.next())
 
-# print("next(myiter) = " ,next(myiter))
-# print("next(myiter) = " ,next(myiter))
+# print("next(myiter) = ", next(myiter))
+# print("next(myiter) = ", next(myiter))
 
-# l_iter_list = [li + 1 for li in l]
-# print("l iter list:", l_iter_list)
+# li_iter_list = [item + 1 for item in li]
+# print("l iter list:", li_iter_list)
 
 # m = make_list(1, 2, 3, 4, 5)
 # print("m[1] = ", m[1])
