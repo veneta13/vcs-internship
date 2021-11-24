@@ -22,15 +22,15 @@ class Predicate:
         return lambda x: not self(x)
 
     def __rshift__(self, other):
-        return lambda x: not(self.func(x)) or other.func(x)
+        return lambda x: other(x) if self(x) else True
 
 
 def for_any(*preds):
-    return lambda y: any(item.func(y) for item in preds)
+    return lambda x: any(item(x) for item in preds)
 
 
 def for_all(*preds):
-    return lambda y: all(item.func(y) for item in preds)
+    return lambda x: all(item(x) for item in preds)
 
 
 def gt(x):
