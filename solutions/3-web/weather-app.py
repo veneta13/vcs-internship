@@ -1,20 +1,22 @@
 import requests
- 
+
+
 key = "bdc3b5555071a1e48ed8f445e274b3d9"
 location = input("Enter location: ")
-request_url = "http://api.openweathermap.org/data/2.5/weather?" + "q=" + str(location) + "&units=metric" + "&appid=" + key
-response = requests.get(request_url)
+req_url = "http://api.openweathermap.org/data/2.5/weather?"
+req_url = req_url + "q=" + str(location) + "&units=metric" + "&appid=" + key
+response = requests.get(req_url)
 response_json = response.json()
 
 if response_json["cod"] == '404':
     print("Error: Location is not found.")
-    
+
 elif response_json["cod"] == 200:
     response_weather = response_json["weather"]
     response_clouds = response_json["clouds"]
     response_wind = response_json["wind"]
-    response_main = response_json["main"] 
-    
+    response_main = response_json["main"]
+
     weather = response_weather[0]["main"]
     weather_desription = response_weather[0]["description"]
     temperature = response_main["temp"]
@@ -24,7 +26,7 @@ elif response_json["cod"] == 200:
     windiness = response_wind["speed"]
     pressure = response_main["pressure"]
     humidity = response_main["humidity"]
- 
+
     print("Weather: {} ({})".format(weather, weather_desription))
     print("Temperature: {} C".format(temperature))
     print("Minimum temperature: {} C ".format(temperature_min))
@@ -33,6 +35,6 @@ elif response_json["cod"] == 200:
     print("Wind speed: {} meter/sec".format(windiness))
     print("Pressure: {} hPa".format(pressure))
     print("Humudity: {} %".format(humidity))
-    
-else: 
+
+else:
     print("Error {} has occured.".format(response_json["cod"]))
