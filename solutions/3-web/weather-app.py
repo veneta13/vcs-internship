@@ -1,5 +1,6 @@
 import requests
 import sys
+from urllib.parse import urlencode, quote_plus
 
 
 KEY = "bdc3b5555071a1e48ed8f445e274b3d9"
@@ -7,7 +8,9 @@ URL = "http://api.openweathermap.org/data/2.5/weather"
 
 
 def get_json_of_location(location):
-    req_url = URL + "?q=" + location + "&units=metric" + "&appid=" + KEY
+    req_dict = {'q': location, 'units': 'metric', 'appid': KEY}
+    req_params = urlencode(req_dict, quote_via=quote_plus)
+    req_url = "{}?{}".format(URL, req_params)
     response = requests.get(req_url)
     return response.json()
 
