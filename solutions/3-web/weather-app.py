@@ -6,8 +6,7 @@ KEY = "bdc3b5555071a1e48ed8f445e274b3d9"
 URL = "http://api.openweathermap.org/data/2.5/weather"
 
 
-def make_request():
-    location = sys.argv[1]
+def get_json_of_location(location):
     req_url = URL + "?q=" + location + "&units=metric" + "&appid=" + KEY
     response = requests.get(req_url)
     return response.json()
@@ -43,12 +42,14 @@ def print_current(current):
     print("Humudity: {} %".format(current['humidity']))
 
 
-response_json = make_request()
-if response_json["cod"] == 200:
-    current = get_current(response_json)
-    print_current(current)
-else:
-    if response_json["cod"] == '404':
-        print("Error: Location is not found.")
+if __name__ == '__main__':
+    location = sys.argv[1]
+    response_json = get_json_of_location(location)
+    if response_json["cod"] == 200:
+        current = get_current(response_json)
+        print_current(current)
     else:
-        print("Error {} has occured.".format(response_json["cod"]))
+        if response_json["cod"] == '404':
+            print("Error: Location is not found.")
+        else:
+            print("Error {} has occured.".format(response_json["cod"]))
