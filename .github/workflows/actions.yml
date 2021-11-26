@@ -17,7 +17,7 @@ jobs:
       run: npm install eslint
     - name: Run eslint
       run: |
-        npx eslint .
+        npx eslint "**/*.js" --no-error-on-unmatched-pattern
 
   run_python_linters:
     name: Run Python Linter Checks
