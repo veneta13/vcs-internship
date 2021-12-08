@@ -1,23 +1,8 @@
 {
-  "name": "vcs-internship",
-  "version": "1.0.0",
-  "description": "vcs-internship",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/veneta13/vcs-internship.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/veneta13/vcs-internship/issues"
-  },
-  "homepage": "https://github.com/veneta13/vcs-internship#readme",
   "devDependencies": {
-    "eslint": "^8.3.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint": "^8.4.1"
+  },
+  "dependencies": {
+    "eslint-config-standard": "^16.0.3"
   }
 }
