@@ -16,7 +16,7 @@ jobs:
     - name: Install npm dependencies
       run: npm install eslint 
     - name: Install eslint standard
-      run: npm install eslint-config-standard
+      run: npm install --save-dev eslint-config-standard eslint-plugin-promise eslint-plugin-import eslint-plugin-node
     - name: Run eslint
       run: |
         npx eslint "**/*.js" --no-error-on-unmatched-pattern
