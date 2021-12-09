@@ -1,5 +1,5 @@
 var find = function (predicate, arr) {
-  return arr.find(item => predicate(item))
+  return arr.find(predicate)
 }
 
 function isNumber (x) {
