@@ -1,8 +1,8 @@
 var range = function (from, to) {
-  if (from === to) {
-    return to
+  if (from <= to) {
+    return [from].concat(range(from + 1, to))
   } else {
-    return [range(from, to - 1)].flat().concat(to)
+    return []
   }
 }
 
