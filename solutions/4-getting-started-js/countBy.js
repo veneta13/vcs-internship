@@ -1,12 +1,11 @@
-/* eslint-disable no-var */
-
 import { groupBy } from './groupBy.js'
 
 var countBy = function (groupingFunction, arr) {
-  return Object.entries(groupBy(groupingFunction, arr)).reduce((item, [key, val]) => {
-    item[key] = val.length
-    return item
-  }, {})
+  return Object.entries(groupBy(groupingFunction, arr))
+    .reduce((item, [key, val]) => {
+      item[key] = val.length
+      return item
+    }, {})
 }
 
 const students = [{
