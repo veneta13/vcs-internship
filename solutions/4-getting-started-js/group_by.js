@@ -1,12 +1,10 @@
 // eslint-disable-next-line no-var
 var groupBy = function (groupingFunction, arr) {
-  const properties = new Set()
-  const result = {}
-  arr.forEach(item => properties.add(groupingFunction(item)))
-  properties.forEach(property =>
-    (result[property] = arr.filter(item =>
-      Object.values(item).indexOf(property) !== -1)))
-  return result
+  return arr.reduce((result, item) => {
+    const value = item[Object.keys(item).find(key => item[key] === groupingFunction(item))]
+    result[value] = (result[value] || []).concat(item)
+    return result
+  }, {})
 }
 
 const students = [{
