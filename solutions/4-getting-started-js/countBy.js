@@ -1,12 +1,6 @@
 /* eslint-disable no-var */
 
-var groupBy = function (groupingFunction, arr) {
-  return arr.reduce((result, item) => {
-    const value = item[Object.keys(item).find(key => item[key] === groupingFunction(item))]
-    result[value] = (result[value] || []).concat(item)
-    return result
-  }, {})
-}
+import { groupBy } from './groupBy.js'
 
 var countBy = function (groupingFunction, arr) {
   const result = {}
