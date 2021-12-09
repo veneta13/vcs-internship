@@ -1,10 +1,11 @@
-// eslint-disable-next-line no-var
-var groupBy = function (groupingFunction, arr) {
-  return arr.reduce((result, item) => {
-    const value = item[Object.keys(item).find(key => item[key] === groupingFunction(item))]
-    result[value] = (result[value] || []).concat(item)
-    return result
-  }, {})
+import { groupBy } from './groupBy.js'
+
+var countBy = function (groupingFunction, arr) {
+  return Object.entries(groupBy(groupingFunction, arr))
+    .reduce((item, [key, val]) => {
+      item[key] = val.length
+      return item
+    }, {})
 }
 
 const students = [{
@@ -24,6 +25,6 @@ const students = [{
   course: 'Core Java'
 }]
 
-console.log(groupBy(function (student) {
+console.log(countBy(function (student) {
   return student.course
 }, students))
