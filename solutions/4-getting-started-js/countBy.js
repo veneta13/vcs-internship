@@ -1,11 +1,18 @@
-// eslint-disable-next-line no-var
+/* eslint-disable no-var */
+
+var groupBy = function (groupingFunction, arr) {
+  return arr.reduce((result, item) => {
+    const value = item[Object.keys(item).find(key => item[key] === groupingFunction(item))]
+    result[value] = (result[value] || []).concat(item)
+    return result
+  }, {})
+}
+
 var countBy = function (groupingFunction, arr) {
-  const properties = new Set()
   const result = {}
-  arr.forEach(item => properties.add(groupingFunction(item)))
-  properties.forEach(property =>
-    (result[property] = (arr.filter(item =>
-      Object.values(item).indexOf(property) !== -1).length)))
+  for (const [key, value] of Object.entries(groupBy(groupingFunction, arr))) {
+    result[key] = value.length
+  }
   return result
 }
 
