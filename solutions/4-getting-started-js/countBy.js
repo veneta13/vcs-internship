@@ -3,11 +3,10 @@
 import { groupBy } from './groupBy.js'
 
 var countBy = function (groupingFunction, arr) {
-  const result = {}
-  for (const [key, value] of Object.entries(groupBy(groupingFunction, arr))) {
-    result[key] = value.length
-  }
-  return result
+  return Object.entries(groupBy(groupingFunction, arr)).reduce((item, [key, val]) => {
+    item[key] = val.length
+    return item
+  }, {})
 }
 
 const students = [{
