@@ -27,3 +27,5 @@ const students = [{
 console.log(groupBy(function (student) {
   return student.course
 }, students))
+
+export { groupBy }
