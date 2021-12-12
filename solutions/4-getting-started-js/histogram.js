@@ -4,7 +4,9 @@ const wordsHistogram = function (str) {
   return wordArray.reduce(function (histogram, word) {
     if (word in histogram) {
       histogram[word]++
-    } else { histogram[word] = 1 }
+    } else {
+      histogram[word] = 1
+    }
     return histogram
   }, {})
 }
