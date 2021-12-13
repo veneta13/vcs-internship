@@ -1,11 +1,8 @@
 /* eslint-disable no-extend-native */
 Number.prototype.times = function (action) {
-  (function call (func, count, max) {
-    func()
-    if (count < max) {
-      call(func, count + 1, max)
-    }
-  })(action, 1, this)
+  for (let i = 0; i < this; i++) {
+    action()
+  }
 };
 
 (5).times(function () {
