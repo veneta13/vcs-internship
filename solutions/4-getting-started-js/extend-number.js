@@ -5,7 +5,7 @@ Number.prototype.times = function (action) {
     if (count < max) {
       call(func, count + 1, max)
     }
-  })(action, 0, this)
+  })(action, 1, this)
 };
 
 (5).times(function () {
