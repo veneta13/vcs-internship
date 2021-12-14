@@ -40,6 +40,4 @@ class Point {
   }
 }
 
-const p1 = new Point(2, 1)
-p1.xInc()
-console.log(p1.toString())
+export { Point }
