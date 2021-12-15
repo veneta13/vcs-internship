@@ -4,11 +4,12 @@ var queue = {
     this.data.push(item)
   },
   pop: function () {
-    this.data.pop()
+    return this.data.pop()
   },
   isEmpty: function () {
     return this.data.length === 0
   }
 }
 
-console.log(queue.isEmpty())
+queue.push(5)
+console.log(queue.pop())
