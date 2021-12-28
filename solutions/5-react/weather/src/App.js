@@ -27,41 +27,57 @@ class App extends React.Component {
     axios.get(request)
       .then(res => {
         const response = res.data;
+
+        let weather = response.weather[0].main
+        weather += " (" + response.weather[0].description +")"
+
+        let temperature = [
+          response.main.temp + " C°",
+          "LOW " + response.main.temp_min + " C°",
+          "HIGH " + response.main.temp_max + " C°"
+        ];
+
+        let cloudiness = response.clouds.all + " %";
+        let windiness = response.wind.speed + " meter/sec";
+        let pressure = response.main.pressure + " hPa";
+        let humidity = response.main.humidity + "%";
+
         this.setState({
           value: this.state.value,
-          weather: response.weather[0].main,
-          description: response.weather[0].description,
-          temperature: response.main.temp,
-          temperatureMin: response.main.temp_min,
-          temperatureMax: response.main.temp_max,
-          cloudiness: response.clouds.all,
-          windiness: response.wind.speed,
-          pressure: response.main.pressure,
-          humidity: response.wind.humidity,
+          weather: weather,
+          temperature: temperature[0],
+          temperatureMin: temperature[1],
+          temperatureMax: temperature[2],
+          cloudiness: cloudiness,
+          windiness: windiness,
+          pressure: pressure,
+          humidity: humidity,
         });
       })
-    console.log(this.state)
     event.preventDefault();
 }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Location:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <p> {this.state.weather} </p>
-        <p> {this.state.description} </p>
-        <p> {this.state.temperature} </p>
-        <p> {this.state.temperatureMin} </p>
-        <p> {this.state.temperatureMax} </p>
-        <p> {this.state.cloudiness} </p>
-        <p> {this.state.windiness} </p>
-        <p> {this.state.pressure} </p>
-        <p> {this.state.humidity} </p>
-        <input type="submit" value="Get weather!" />
-      </form>
+      <div id="weather-display">
+        <form onSubmit={this.handleSubmit}>
+
+          <label>
+            Location:
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
+          </label>
+
+            <p>Weather: {this.state.weather}</p>
+            <p>Temperature: {this.state.temperature} {this.state.temperatureMin} {this.state.temperatureMax}</p>
+            <p>Cloudiness: {this.state.cloudiness}</p>
+            <p>Windiness: {this.state.windiness}</p>
+            <p>Pressure: {this.state.pressure}</p>
+            <p>Humidity: {this.state.humidity}</p>
+
+          <input type="submit" value="Get weather!" />
+          
+        </form>
+      </div>
     );
   }
 }
