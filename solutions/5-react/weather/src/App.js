@@ -10,19 +10,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 'Sofia'
+      location: 'Sofia'
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleChange = event => {
+    this.setState({location: event.target.value});
   }
 
-  handleSubmit(event) {
-    const request = `${URL}?q=${this.state.value}&units=${UNIT}&appid=${KEY}`
+  handleSubmit = event => {
+    const request = `${URL}?q=${this.state.location}&units=${UNIT}&appid=${KEY}`
 
     axios.get(request)
       .then(res => {
@@ -43,7 +40,7 @@ class App extends React.Component {
         let humidity = response.main.humidity + "%";
 
         this.setState({
-          value: this.state.value,
+          location: this.state.location,
           weather: weather,
           temperature: temperature[0],
           temperatureMin: temperature[1],
@@ -64,7 +61,7 @@ class App extends React.Component {
 
           <label>
             Location:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+            <input type="text" value={this.state.location} onChange={this.handleChange} />
           </label>
 
             <p>Weather: {this.state.weather}</p>

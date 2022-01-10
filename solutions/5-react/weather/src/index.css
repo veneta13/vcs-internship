@@ -1,52 +1,54 @@
 body {
   margin: 0;
-  display: flex;
   background-color: #699;
-  font-size: 1vw;
+  font-size: 16px;
+  display: flex;
 }
 
 p {
-  font: 2vh Verdana, sans-serif;
+  font: 15px Verdana, sans-serif;
   color: #699;
-}
-
-#weather-display {
-  position: absolute;
-  top: 20vh;
-  left: 25vw;
-  background-color: white;
-  border: 2px double #998099;
-  width: 50vw;
-  height: 50vh;
-  border-radius: 4px;
-  padding: 1vh;
-}
-
-input[type=text] {
-  background-color: #998099;
-  border: 1px solid #998099;
-  border-radius: 4px;
-  padding: 1vh;
-  color: white;
-  font-family: Monaco;
-  width: 50%;
-  margin: 2vh 3vh;
-  display: inline-block;
-  box-sizing: border-box;
 }
 
 label {
   color: #998099;
 }
 
-input[type=submit] {
-  position: absolute;
-  background-color: #998099;
+input[type=text] {
+  padding: 1vh;
   border: 1px solid #998099;
   border-radius: 4px;
+  background-color: #998099;
+  color: white;
+  width: 50%;
+  margin: 2vh 3vh;
+  box-sizing: border-box;
+  font-family: Monaco;
+  display: inline-block;
+}
+
+input[type=submit] {
   padding: 1vh;
+  border: 1px solid #998099;
+  border-radius: 4px;
+  background-color: #998099;
   color: white;
   width: 30%;
   left: 35%;
   margin: 0;
+  position: absolute;
 }
+
+#weather-display {
+  width: 50vw;
+  height: 50vh;
+  top: 20vh;
+  left: 25vw;
+  padding: 1vh;
+  border: 2px double #998099;
+  border-radius: 4px;
+  background-color: white;
+  position: absolute;
+}
+
+/*# sourceMappingURL=index.css.map */
