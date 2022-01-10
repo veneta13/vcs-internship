@@ -1,0 +1,18 @@
+@mixin general($z-ind: 0) {
+  z-index: $z-ind;
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  width: 400px;
+  height: 400px;
+}
+
+#game {
+  @include general;
+}
+#board-layer {
+  @include general($z-ind: 1);
+}
+#game-layer {
+  @include general($z-ind: 2);
+}

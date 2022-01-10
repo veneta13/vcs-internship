@@ -1,29 +1,42 @@
-const occupied = []
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-const */
+/* eslint-disable no-undef */
 
-const isFree = coord => {
-  var flag = true
-  occupied.forEach(function (element) {
-    if (element[0] === coord[0] && element[1] === coord[1]) {
-      flag = false
-    }
-  })
-  return flag
-}
+const board = (function () {
+  let gameSpeed = 0
 
-const place = coord => {
-  occupied.push(coord)
-}
+  const initialize = () => {
+    gameSpeed = snake.speed()
+  }
 
-const remove = coord => {
-  occupied.filter(function (element) {
-    return element[0] !== coord[0] && element[1] !== coord[1]
-  })
-}
+  const update = () => {
+    gameSpeed = snake.speed()
+    snake.move()
+    apple.draw()
+  }
 
-const board = {
-  place: place,
-  isFree: isFree,
-  remove: remove
-}
+  const getSnakeCoordinates = () => {
+    return snake.coordinates
+  }
 
-export default board
+  const getAppleCoordinates = () => {
+    return apple.coordinates
+  }
+
+  const changeSnakeDirection = direction => {
+    snake.changeDirection(direction)
+  }
+
+  const getSpeed = () => {
+    return gameSpeed
+  }
+
+  return {
+    gameSpeed: getSpeed,
+    initialize: initialize,
+    update: update,
+    getAppleCoordinates: getAppleCoordinates,
+    getSnakeCoordinates: getSnakeCoordinates,
+    changeSnakeDirection: changeSnakeDirection
+  }
+})()
