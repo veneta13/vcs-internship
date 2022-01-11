@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 import axios from 'axios';
 
@@ -28,16 +27,16 @@ class App extends React.Component {
         let weather = response.weather[0].main
         weather += " (" + response.weather[0].description +")"
 
-        let temperature = [
+        const temperature = [
           response.main.temp + " C°",
           "LOW " + response.main.temp_min + " C°",
           "HIGH " + response.main.temp_max + " C°"
         ];
 
-        let cloudiness = response.clouds.all + " %";
-        let windiness = response.wind.speed + " meter/sec";
-        let pressure = response.main.pressure + " hPa";
-        let humidity = response.main.humidity + "%";
+        const cloudiness = response.clouds.all + " %";
+        const windiness = response.wind.speed + " meter/sec";
+        const pressure = response.main.pressure + " hPa";
+        const humidity = response.main.humidity + "%";
 
         this.setState({
           location: this.state.location,
@@ -56,25 +55,23 @@ class App extends React.Component {
 
   render() {
     return (
-      <div id="weather-display">
-        <form onSubmit={this.handleSubmit}>
+        <div class="weather-display">
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Location:
+                    <input type="text" value={this.state.location} onChange={this.handleChange} />
+                </label>
 
-          <label>
-            Location:
-            <input type="text" value={this.state.location} onChange={this.handleChange} />
-          </label>
+                <p>Weather: {this.state.weather}</p>
+                <p>Temperature: {this.state.temperature} {this.state.temperatureMin} {this.state.temperatureMax}</p>
+                <p>Cloudiness: {this.state.cloudiness}</p>
+                <p>Windiness: {this.state.windiness}</p>
+                <p>Pressure: {this.state.pressure}</p>
+                <p>Humidity: {this.state.humidity}</p>
 
-            <p>Weather: {this.state.weather}</p>
-            <p>Temperature: {this.state.temperature} {this.state.temperatureMin} {this.state.temperatureMax}</p>
-            <p>Cloudiness: {this.state.cloudiness}</p>
-            <p>Windiness: {this.state.windiness}</p>
-            <p>Pressure: {this.state.pressure}</p>
-            <p>Humidity: {this.state.humidity}</p>
-
-          <input type="submit" value="Get weather!" />
-          
-        </form>
-      </div>
+                <input type="submit" value="Get weather!" />
+            </form>
+        </div>
     );
   }
 }
