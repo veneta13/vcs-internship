@@ -48,19 +48,15 @@ const apple = (function () {
     const type = getType();
     if (type <= 0.25) {
       snake.goSLower();
-      return snake;
     }
     if (type <= 0.5) {
       snake.goFaster();
-      return snake;
     }
     if (type <= 0.75) {
       snake.shrink();
-      return snake;
     }
     if (type <= 1) {
       snake.elongate();
-      return snake;
     }
   }
 
