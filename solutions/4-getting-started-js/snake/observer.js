@@ -1,23 +1,44 @@
-function EventObserver () {
-  this.observers = []
-}
+/* eslint-disable no-unused-vars */
+/* eslint-disable semi */
 
-EventObserver.prototype = {
-  subscribe: function (observer) {
-    this.observers.push(observer)
-  },
-  unsubscribe: function (observer) {
+class EventObserver {
+  constructor () {
+    this.observers = [];
+  }
+
+  subscribe = function (observer) {
+    this.observers.push(observer);
+  }
+
+  unsubscribe = function (observer) {
     this.observers = this.observers.filter(element => {
       if (element !== observer) {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
     })
-  },
-  fire: function () {
+  }
+
+  fire = function () {
     this.observers.forEach(observer => {
-      observer.update()
+      observer.update();
+    })
+  }
+}
+
+class DirectionObserver extends EventObserver {
+  fire = data => {
+    this.observers.forEach(observer => {
+      observer.changeDirection(data);
+    })
+  }
+}
+
+class CollisionObserver extends EventObserver {
+  fire = (...data) => {
+    this.observers.forEach(observer => {
+      observer.collisionUpdate(data);
     })
   }
 }

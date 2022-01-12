@@ -1,42 +1,26 @@
+/* eslint-disable semi */
 /* eslint-disable no-unused-vars */
 /* eslint-disable prefer-const */
 /* eslint-disable no-undef */
 
 const board = (function () {
-  let gameSpeed = 0
-
-  const initialize = () => {
-    gameSpeed = snake.speed()
-  }
+  let gameSpeed = 0;
 
   const update = () => {
-    gameSpeed = snake.speed()
-    snake.move()
-    apple.draw()
+    gameSpeed = snake.speed();
   }
 
   const getSnakeCoordinates = () => {
-    return snake.coordinates
-  }
-
-  const getAppleCoordinates = () => {
-    return apple.coordinates
-  }
-
-  const changeSnakeDirection = direction => {
-    snake.changeDirection(direction)
+    return snake.coordinates;
   }
 
   const getSpeed = () => {
-    return gameSpeed
+    return gameSpeed;
   }
 
   return {
     gameSpeed: getSpeed,
-    initialize: initialize,
-    update: update,
-    getAppleCoordinates: getAppleCoordinates,
-    getSnakeCoordinates: getSnakeCoordinates,
-    changeSnakeDirection: changeSnakeDirection
+    update,
+    getSnakeCoordinates
   }
 })()
