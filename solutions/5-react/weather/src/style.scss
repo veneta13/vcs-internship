@@ -1,0 +1,60 @@
+$font-stack: Verdana, sans-serif;
+$font-accent: Monaco;
+$primary-color: white;
+$secondary-color: #699;
+$tertiary-color: #998099;
+$radius: 4px;
+
+@mixin accent() {
+  padding: 1%;
+  border: 1px solid $tertiary-color;
+  border-radius: $radius;
+  background-color: $tertiary-color;
+  color: $primary-color;
+}
+
+body {
+  margin: 0;
+  background-color: $secondary-color;
+  font-size: 16px;
+  display: flex;
+}
+
+p {
+  font: 15px $font-stack;
+  color: $secondary-color;
+}
+
+label {
+  color: $tertiary-color;
+}
+
+input[type=text] {
+  @include accent;
+  width: 50%;
+  margin: 2% 3%;
+  box-sizing: border-box;
+  font-family: $font-accent;
+  display: inline-block;
+}
+
+
+input[type=submit] {
+  @include accent;
+  width: 30%;
+  left: 35%;
+  margin: 0;
+  position: absolute;
+}
+
+.weather-display {
+  width: 50%;
+  height: 50%;
+  top: 20%;
+  left: 25%;
+  padding: 1%;
+  border: 2px double $tertiary-color;
+  border-radius: $radius;
+  background-color: $primary-color;
+  position: absolute;
+}

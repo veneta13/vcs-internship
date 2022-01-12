@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  background-color: #699;
+  font-size: 16px;
+  display: flex;
+}
+
+p {
+  font: 15px Verdana, sans-serif;
+  color: #699;
+}
+
+label {
+  color: #998099;
+}
+
+input[type=text] {
+  padding: 1%;
+  border: 1px solid #998099;
+  border-radius: 4px;
+  background-color: #998099;
+  color: white;
+  width: 50%;
+  margin: 2% 3%;
+  box-sizing: border-box;
+  font-family: Monaco;
+  display: inline-block;
+}
+
+input[type=submit] {
+  padding: 1%;
+  border: 1px solid #998099;
+  border-radius: 4px;
+  background-color: #998099;
+  color: white;
+  width: 30%;
+  left: 35%;
+  margin: 0;
+  position: absolute;
+}
+
+.weather-display {
+  width: 50%;
+  height: 50%;
+  top: 20%;
+  left: 25%;
+  padding: 1%;
+  border: 2px double #998099;
+  border-radius: 4px;
+  background-color: white;
+  position: absolute;
+}
+
+/*# sourceMappingURL=index.css.map */
