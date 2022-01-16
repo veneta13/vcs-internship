@@ -1,3 +1,5 @@
+/* eslint-disable quote-props */
+/* eslint-disable no-undef */
 /* eslint-disable semi */
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
@@ -20,7 +22,11 @@ let snake = (function () {
   }
 
   const changeDirection = newDirection => {
-    direction = newDirection;
+    direction = newDirection[0];
+  }
+
+  const returnSpeed = () => {
+    return speed;
   }
 
   const update = () => {
@@ -56,11 +62,12 @@ let snake = (function () {
   const shrink = () => {
     coordinates.pop();
     if (coordinates.length === 0) {
-      alert('Snake shrinked to 0. Game over!');
+      eventObserver.fire(this, 'game over');
+      gameOver = true;
     }
   }
 
-  const elongate = () => {
+  const grow = () => {
     const head = [...coordinates[0]];
     if (direction === 'ArrowRight') {
       coordinates.push([head[0] + 1, head[1]]);
@@ -74,28 +81,34 @@ let snake = (function () {
   }
 
   const goFaster = () => {
-    speed += 100;
+    speed -= 100;
   }
 
   const goSLower = () => {
-    speed -= 100;
+    speed += 100;
     if (speed < 1) {
-      alert('The snake speed has reached 0. Game over!');
+      eventObserver.fire('game over');
+      gameOver = true;
     }
   }
 
-  const getSpeed = () => {
-    return speed;
+  const appleTypes = {
+    'red': goSLower,
+    'blue': goFaster,
+    'yellow': grow,
+    'purple': shrink
+  };
+
+  const eat = appleType => {
+    appleTypes[appleType[0]]();
   }
+
+  eventObserver.subscribe('change snake direction', changeDirection);
+  eventObserver.subscribe('snake update', update);
+  eventObserver.subscribe('change snake', eat);
 
   return {
     coordinates,
-    speed: getSpeed,
-    update,
-    shrink,
-    elongate,
-    goFaster,
-    goSLower,
-    changeDirection
+    speed: returnSpeed
   }
 })()

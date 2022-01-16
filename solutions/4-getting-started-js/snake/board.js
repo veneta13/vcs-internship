@@ -4,23 +4,22 @@
 /* eslint-disable no-undef */
 
 const board = (function () {
-  let gameSpeed = 0;
+  const occupied = snake.coordinates;
 
-  const update = () => {
-    gameSpeed = snake.speed();
+  const displayGameOver = () => {
+    var canvas = document.getElementById('game-layer');
+    if (canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'yellow';
+      ctx.font = '70px sans-serif';
+      ctx.fillText('Game Over', 16, 220);
+    }
   }
-
-  const getSnakeCoordinates = () => {
-    return snake.coordinates;
-  }
-
-  const getSpeed = () => {
-    return gameSpeed;
-  }
+  eventObserver.subscribe('game over', displayGameOver);
 
   return {
-    gameSpeed: getSpeed,
-    update,
-    getSnakeCoordinates
+    displayGameOver,
+    occupied
   }
 })()

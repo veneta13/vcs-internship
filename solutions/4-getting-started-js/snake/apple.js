@@ -1,10 +1,13 @@
+/* eslint-disable no-undef */
+/* eslint-disable quote-props */
 /* eslint-disable semi */
 // eslint-disable-next-line no-unused-vars
 const apple = (function () {
   let coordinates = [];
+  let appleColor = 'red';
 
   const getType = () => {
-    return Math.random();
+    return Math.random() * 4;
   }
 
   const setCoordinates = () => {
@@ -13,11 +16,11 @@ const apple = (function () {
     coordinates = [x, y];
   }
 
-  const draw = () => {
+  const update = () => {
     var canvas = document.getElementById('game-layer');
     if (canvas.getContext) {
       const ctx = canvas.getContext('2d');
-      ctx.fillStyle = 'red';
+      ctx.fillStyle = appleColor;
       ctx.fillRect(coordinates[0] * 10, coordinates[1] * 10, 10, 10);
     }
   }
@@ -26,44 +29,43 @@ const apple = (function () {
     return coordinates;
   }
 
-  const update = () => {
-    draw();
-  }
-
-  const collisionUpdate = args => {
-    changeSnake(args[0]);
-    placeOnBoard(args[1]);
+  const collisionUpdate = board => {
+    changeColor();
+    placeOnBoard(board);
   }
 
   const placeOnBoard = board => {
-    const snakeCoord = board.getSnakeCoordinates();
+    const occupiedBoard = board[0].occupied;
     setCoordinates();
-    while (snakeCoord[0][0] === coordinates[0] ||
-           snakeCoord[0][1] === coordinates[1]) {
+    while (occupiedBoard[0][0] === coordinates[0] ||
+           occupiedBoard[0][1] === coordinates[1]) {
       setCoordinates();
     }
   }
 
-  const changeSnake = snake => {
+  const changeColor = () => {
+    eventObserver.fire('change snake', appleColor);
     const type = getType();
-    if (type <= 0.25) {
-      snake.goSLower();
-    }
-    if (type <= 0.5) {
-      snake.goFaster();
-    }
-    if (type <= 0.75) {
-      snake.shrink();
-    }
     if (type <= 1) {
-      snake.elongate();
+      appleColor = 'red';
+    }
+    if (type > 1 && type <= 2) {
+      appleColor = 'blue';
+    }
+    if (type > 2 && type <= 3) {
+      appleColor = 'yellow';
+    }
+    if (type > 3 && type <= 4) {
+      appleColor = 'purple';
     }
   }
 
+  eventObserver.subscribe('apple update', update);
+  eventObserver.subscribe('apple eaten', collisionUpdate);
+  eventObserver.subscribe('apple place', placeOnBoard);
+
   return {
     coordinates: returnCoordinates,
-    place: placeOnBoard,
-    update,
-    collisionUpdate
+    place: placeOnBoard
   }
 })()

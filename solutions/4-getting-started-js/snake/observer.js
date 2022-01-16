@@ -3,16 +3,20 @@
 
 class EventObserver {
   constructor () {
-    this.observers = [];
+    this.events = [];
   }
 
-  subscribe = function (observer) {
-    this.observers.push(observer);
+  subscribe = function (name, callback) {
+    this.events.push(
+      {
+        name,
+        func: callback
+      });
   }
 
-  unsubscribe = function (observer) {
-    this.observers = this.observers.filter(element => {
-      if (element !== observer) {
+  unsubscribe = function (event) {
+    this.events = this.events.filter(element => {
+      if (element.name !== event) {
         return true;
       } else {
         return false;
@@ -20,25 +24,13 @@ class EventObserver {
     })
   }
 
-  fire = function () {
-    this.observers.forEach(observer => {
-      observer.update();
+  fire = function (eventName, ...args) {
+    this.events.forEach(event => {
+      if (event.name === eventName) {
+        event.func(args);
+      }
     })
   }
 }
 
-class DirectionObserver extends EventObserver {
-  fire = data => {
-    this.observers.forEach(observer => {
-      observer.changeDirection(data);
-    })
-  }
-}
-
-class CollisionObserver extends EventObserver {
-  fire = (...data) => {
-    this.observers.forEach(observer => {
-      observer.collisionUpdate(data);
-    })
-  }
-}
+const eventObserver = new EventObserver();
