@@ -5,19 +5,31 @@
 const apple = (function () {
   let coordinates = [];
   let appleColor = 'red';
+  const appleColors = {
+    1: 'red',
+    2: 'yellow',
+    3: 'blue',
+    4: 'purple'
+  }
+  const appleEffect = {
+    'red': 'goSLower',
+    'blue': 'goFaster',
+    'yellow': 'grow',
+    'purple': 'shrink'
+  };
 
   const getType = () => {
-    return Math.random() * 4;
+    return appleColors[Math.ceil(Math.random() * 4)];
   }
 
   const setCoordinates = () => {
-    const x = 1 + Math.round(Math.random() * 37);
-    const y = 1 + Math.round(Math.random() * 37);
+    const x = 1 + Math.round(Math.random() * BoardSize);
+    const y = 1 + Math.round(Math.random() * BoardSize);
     coordinates = [x, y];
   }
 
   const update = () => {
-    var canvas = document.getElementById('game-layer');
+    const canvas = document.getElementById('game-layer');
     if (canvas.getContext) {
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = appleColor;
@@ -44,25 +56,13 @@ const apple = (function () {
   }
 
   const changeColor = () => {
-    eventObserver.fire('change snake', appleColor);
-    const type = getType();
-    if (type <= 1) {
-      appleColor = 'red';
-    }
-    if (type > 1 && type <= 2) {
-      appleColor = 'blue';
-    }
-    if (type > 2 && type <= 3) {
-      appleColor = 'yellow';
-    }
-    if (type > 3 && type <= 4) {
-      appleColor = 'purple';
-    }
+    eventObserver.fire(appleEffect[appleColor]);
+    appleColor = getType();
   }
 
-  eventObserver.subscribe('apple update', update);
-  eventObserver.subscribe('apple eaten', collisionUpdate);
-  eventObserver.subscribe('apple place', placeOnBoard);
+  eventObserver.subscribe('appleUpdate', update);
+  eventObserver.subscribe('appleEaten', collisionUpdate);
+  eventObserver.subscribe('applePlace', placeOnBoard);
 
   return {
     coordinates: returnCoordinates,

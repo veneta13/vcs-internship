@@ -7,6 +7,7 @@ const board = (function () {
   const occupied = snake.coordinates;
 
   const displayGameOver = () => {
+    GameOver = true;
     var canvas = document.getElementById('game-layer');
     if (canvas.getContext) {
       const ctx = canvas.getContext('2d');
@@ -16,7 +17,7 @@ const board = (function () {
       ctx.fillText('Game Over', 16, 220);
     }
   }
-  eventObserver.subscribe('game over', displayGameOver);
+  eventObserver.subscribe('gameOver', displayGameOver);
 
   return {
     displayGameOver,

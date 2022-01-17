@@ -41,17 +41,17 @@ let snake = (function () {
         head[0] += 1;
         coordinates.unshift(head);
         coordinates.pop();
-        break
+        break;
       case 'ArrowLeft':
         head[0] -= 1;
         coordinates.unshift(head);
         coordinates.pop();
-        break
+        break;
       case 'ArrowDown':
         head[1] += 1;
         coordinates.unshift(head);
         coordinates.pop();
-        break
+        break;
       case 'ArrowUp':
         head[1] -= 1;
         coordinates.unshift(head);
@@ -62,8 +62,7 @@ let snake = (function () {
   const shrink = () => {
     coordinates.pop();
     if (coordinates.length === 0) {
-      eventObserver.fire(this, 'game over');
-      gameOver = true;
+      eventObserver.fire(this, 'gameOver');
     }
   }
 
@@ -82,30 +81,21 @@ let snake = (function () {
 
   const goFaster = () => {
     speed -= 100;
-  }
-
-  const goSLower = () => {
-    speed += 100;
     if (speed < 1) {
-      eventObserver.fire('game over');
-      gameOver = true;
+      eventObserver.fire('gameOver');
     }
   }
 
-  const appleTypes = {
-    'red': goSLower,
-    'blue': goFaster,
-    'yellow': grow,
-    'purple': shrink
-  };
-
-  const eat = appleType => {
-    appleTypes[appleType[0]]();
+  const goSlower = () => {
+    speed += 100;
   }
 
-  eventObserver.subscribe('change snake direction', changeDirection);
-  eventObserver.subscribe('snake update', update);
-  eventObserver.subscribe('change snake', eat);
+  eventObserver.subscribe('changeSnakeDirection', changeDirection);
+  eventObserver.subscribe('snakeUpdate', update);
+  eventObserver.subscribe('goSlower', goSlower);
+  eventObserver.subscribe('goFaster', goFaster);
+  eventObserver.subscribe('grow', grow);
+  eventObserver.subscribe('shrink', shrink);
 
   return {
     coordinates,
