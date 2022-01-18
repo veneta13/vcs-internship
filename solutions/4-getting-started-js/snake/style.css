@@ -1,0 +1,28 @@
+#game {
+  z-index: 0;
+  height: 400px;
+  width: 400px;
+  position: fixed;
+  left: 5px;
+  top: 5px;
+}
+
+#board-layer {
+  z-index: 1;
+  height: 400px;
+  width: 400px;
+  position: fixed;
+  left: 5px;
+  top: 5px;
+}
+
+#game-layer {
+  z-index: 2;
+  height: 400px;
+  width: 400px;
+  position: fixed;
+  left: 5px;
+  top: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */
