@@ -7,7 +7,7 @@ const board = (function () {
   const occupied = snake.coordinates;
 
   const displayGameOver = () => {
-    GameOver = true;
+    GAME_OVER = true;
     var canvas = document.getElementById('game-layer');
     if (canvas.getContext) {
       const ctx = canvas.getContext('2d');

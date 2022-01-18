@@ -4,27 +4,33 @@
 // eslint-disable-next-line no-unused-vars
 const apple = (function () {
   let coordinates = [];
-  let appleColor = 'red';
-  const appleColors = {
-    1: 'red',
-    2: 'yellow',
-    3: 'blue',
-    4: 'purple'
+  const appleTypes = {
+    1: {
+      color: 'red',
+      effect: 'goSlower'
+    },
+    2: {
+      color: 'yellow',
+      effect: 'grow'
+    },
+    3: {
+      color: 'blue',
+      effect: 'goFaster'
+    },
+    4: {
+      color: 'purple',
+      effect: 'shrink'
+    }
   }
-  const appleEffect = {
-    'red': 'goSLower',
-    'blue': 'goFaster',
-    'yellow': 'grow',
-    'purple': 'shrink'
-  };
+  let currentApple = appleTypes[1];
 
   const getType = () => {
-    return appleColors[Math.ceil(Math.random() * 4)];
+    return appleTypes[Math.ceil(Math.random() * 4)];
   }
 
   const setCoordinates = () => {
-    const x = 1 + Math.round(Math.random() * BoardSize);
-    const y = 1 + Math.round(Math.random() * BoardSize);
+    const x = 1 + Math.round(Math.random() * BOARD_SIZE);
+    const y = 1 + Math.round(Math.random() * BOARD_SIZE);
     coordinates = [x, y];
   }
 
@@ -32,7 +38,7 @@ const apple = (function () {
     const canvas = document.getElementById('game-layer');
     if (canvas.getContext) {
       const ctx = canvas.getContext('2d');
-      ctx.fillStyle = appleColor;
+      ctx.fillStyle = currentApple.color;
       ctx.fillRect(coordinates[0] * 10, coordinates[1] * 10, 10, 10);
     }
   }
@@ -42,7 +48,7 @@ const apple = (function () {
   }
 
   const collisionUpdate = board => {
-    changeColor();
+    changeApple();
     placeOnBoard(board);
   }
 
@@ -55,9 +61,9 @@ const apple = (function () {
     }
   }
 
-  const changeColor = () => {
-    eventObserver.fire(appleEffect[appleColor]);
-    appleColor = getType();
+  const changeApple = () => {
+    eventObserver.fire(currentApple.effect);
+    currentApple = getType();
   }
 
   eventObserver.subscribe('appleUpdate', update);

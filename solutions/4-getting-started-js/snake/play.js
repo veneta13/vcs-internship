@@ -3,14 +3,14 @@
 /* eslint-disable no-undef */
 
 // eslint-disable-next-line prefer-const
-let GameOver = false;
-const BoardSize = 37;
+let GAME_OVER = false;
+const BOARD_SIZE = 37;
 
 function play () {
   eventObserver.fire('applePlace', board);
 
   (function repeat () {
-    if (!GameOver) {
+    if (!GAME_OVER) {
       eventObserver.fire('snakeUpdate');
       eventObserver.fire('appleUpdate');
       checkCollisions();
