@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from links_list.models import LinkList
+from llists.models import LinkList
 from rest_framework import serializers
 
 
