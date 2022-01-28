@@ -15,6 +15,7 @@ class LinkRelatedField(serializers.RelatedField):
 
 
 class LinkListSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name="lists-detail")
     owner = serializers.ReadOnlyField(source='owner.username')
     links = LinkRelatedField(
         many=True,

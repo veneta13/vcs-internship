@@ -7,7 +7,7 @@ from links import views as link_views
 router = routers.DefaultRouter()
 router.register(r'users', user_views.UserViewSet)
 router.register(r'links', link_views.LinkViewSet)
-router.register(r'lists', list_views.LinkListViewSet)
+router.register(r'lists', list_views.LinkListViewSet, basename='lists')
 
 urlpatterns = [
     path('', include(router.urls)),
