@@ -1,13 +1,10 @@
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 
-class IsOwner(BasePermission):
+class IsOwnerOrPublic(BasePermission):
     def has_permission(self, request, view):
-        if request.user.is_authenticated:
-            return True
-        return False
+        return request.user and request.user.is_authenticated
 
     def has_object_permission(self, request, view, obj):
-        if obj.owner == request.user:
-            return True
-        return False
+        return obj.owner == request.user or (
+            obj.public and (request.method in SAFE_METHODS))

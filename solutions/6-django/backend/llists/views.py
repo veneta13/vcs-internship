@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
-from llists.permissions import IsOwner
+from llists.filters import IsOwnerOrPublicFilter
+from llists.permissions import IsOwnerOrPublic
 from llists.models import LinkList
 from llists.serializers import LinkListSerializer
 
@@ -9,7 +9,7 @@ from llists.serializers import LinkListSerializer
 class LinkListViewSet(viewsets.ModelViewSet,
                       generics.ListAPIView,
                       generics.RetrieveAPIView):
-    def get_queryset(self):
-        return LinkList.objects.filter(owner=self.request.user)
+    queryset = LinkList.objects.all()
     serializer_class = LinkListSerializer
-    permission_classes = [IsOwner & IsAuthenticated]
+    filter_backends = [IsOwnerOrPublicFilter]
+    permission_classes = [IsOwnerOrPublic]

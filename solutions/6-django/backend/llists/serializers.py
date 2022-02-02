@@ -23,4 +23,4 @@ class LinkListSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = LinkList
-        fields = ['url', 'owner', 'name', 'date', 'links']
+        fields = ['url', 'owner', 'name', 'date', 'public', 'links']
