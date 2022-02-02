@@ -1,35 +1,24 @@
 from django.contrib.auth.models import User, Group
-from llists.models import LinkList
 from rest_framework import serializers
+from llists.serializers import LinkListSerializer
 
 
-class ListsRelatedField(serializers.RelatedField):
-    def display_value(self, instance):
-        return instance
-
-    def to_representation(self, value):
-        return str(value)
-
-    def to_internal_value(self, data):
-        return LinkList.objects.get(name=data)
-
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    lists = ListsRelatedField(
-        many=True,
-        queryset=LinkList.objects.all())
+class UserSerializer(serializers.ModelSerializer):
+    lists = LinkListSerializer()
 
     class Meta:
+        read_only_field = ['lists']
         model = User
-        optional_fields = ['lists', 'groups', 'email']  # doesn't work
         fields = ['url', 'username', 'email', 'groups', 'lists']
 
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
+
+class RegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username']
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
