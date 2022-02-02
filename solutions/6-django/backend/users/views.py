@@ -9,4 +9,8 @@ class UserViewSet(viewsets.ModelViewSet,
                   generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            self.permission_classes = (permissions.AllowAny,)
+        return super(UserViewSet, self).get_permissions()

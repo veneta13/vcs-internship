@@ -21,7 +21,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
+        optional_fields = ['lists', 'groups', 'email']  # doesn't work
         fields = ['url', 'username', 'email', 'groups', 'lists']
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
