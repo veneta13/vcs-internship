@@ -1,0 +1,23 @@
+[
+    {
+        "model": "links.link",
+        "pk": 1,
+        "fields": {
+            "link": "http://www.google.com"
+        }
+    },
+    {
+        "model": "links.link",
+        "pk": 2,
+        "fields": {
+            "link": "http://www.wikipedia.com"
+        }
+    },
+    {
+        "model": "links.link",
+        "pk": 3,
+        "fields": {
+            "link": "http://www.bing.com"
+        }
+    }
+]
