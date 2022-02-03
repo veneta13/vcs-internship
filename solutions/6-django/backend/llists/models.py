@@ -10,7 +10,6 @@ class LinkList(models.Model):
         on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     public = models.BooleanField(default=False)
-    date = models.DateTimeField('Date created')
     links = models.ManyToManyField(
         Link,
         related_name='linklists')
