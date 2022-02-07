@@ -1,5 +1,5 @@
 import React from 'react';
-import apiClient from '../axiosClient'
+import axios from 'axios';
 
 class LogIn extends React.Component {
     constructor(props) {
@@ -20,7 +20,6 @@ class LogIn extends React.Component {
     handlePasswordChange = event => {
         event.preventDefault();
         this.setState({
-            username: this.state.username,
             password: event.target.value,
         });
     }
@@ -28,13 +27,13 @@ class LogIn extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
 
-        apiClient.post('/token-auth/')
+        axios.post('http://localhost:8000/api/token-auth/', {
+            username: this.state.username,
+            password: this.state.password
+        })
             .then(res => {
-                const response = res.data;
-            })
-
-        // const token = '';
-        // sessionStorage.setItem("key", "value");
+                localStorage.setItem('token', res.data.token);
+            });
     }
 
     render() {
