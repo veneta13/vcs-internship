@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 
-class LogIn extends React.Component {
+class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+          status: 'Enter username and password',
           username: '',
-          password: ''
+          password: '',
         };
     }
 
@@ -27,18 +28,27 @@ class LogIn extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
 
-        axios.post('http://localhost:8000/api/token-auth/', {
+        axios.post('http://localhost:8000/api/users/registration/', {
             username: this.state.username,
             password: this.state.password
         })
             .then(res => {
-                localStorage.setItem('token', res.data.token);
+                if (res.hasOwnProperty('username') && res.username === this.state.username) {
+                    this.setState({
+                        status: 'Successfully created a new user'
+                    });
+                } else {
+                    this.setState({
+                        status: 'Error: Could not create a new user'
+                    });
+                }
             });
     }
 
     render() {
         return (
             <div>
+                <p>{this.state.status}</p>
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Username
@@ -58,11 +68,11 @@ class LogIn extends React.Component {
                             onChange={this.handlePasswordChange}
                         />
                     </label>
-                    <button type="submit">Log In</button>
+                    <button type="submit">Register</button>
                 </form>
             </div>
         );
     }
 }
 
-export default LogIn;
+export default Registration;

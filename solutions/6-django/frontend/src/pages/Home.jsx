@@ -45,6 +45,24 @@ class Home extends React.Component {
         console.log(this.state);
     }
 
+    handleShare = event => {
+        event.preventDefault();
+
+        console.log('Share');
+    }
+
+    handleDelete = event => {
+        event.preventDefault();
+
+        console.log('Delete');
+    }
+
+    handleSave = event => {
+        event.preventDefault();
+
+        console.log('Save');
+    }
+
     render() {
         return (
             <div>
@@ -55,12 +73,15 @@ class Home extends React.Component {
                 <nav>
                     <Link to="login">LogIn</Link>
                 </nav>
-                <form onSubmit={this.handleAdd}>
+                <form>
                     <div>
                         {this.state.links.map((link, i) => <a href={link} key={i}>{link}</a>)}
                     </div>
                     <input type="text" value={this.state.currentLink} onChange={this.handleCurrentLinkChange} />
-                    <button type="submit"> Add </button>
+                    <button type="submit" onClick={this.handleAdd}> Add </button>
+                    <button type="submit" onClick={this.handleShare}> Share </button>
+                    <button type="submit" onClick={this.handleDelete}> Delete </button>
+                    <button type="submit" onClick={this.handleSave}> Save </button>
                 </form>
             </div>
         );
