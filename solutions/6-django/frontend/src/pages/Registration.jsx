@@ -48,28 +48,33 @@ class Registration extends React.Component {
     render() {
         return (
             <div>
-                <p>{this.state.status}</p>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Username
-                        <input
-                            name="username"
-                            type="text"
-                            value={this.state.username}
-                            onChange={this.handleUsernameChange}
-                        />
-                    </label>
-                    <label>
-                        Password
-                        <input
-                            name="password"
-                            type="password"
-                            value={this.state.password}
-                            onChange={this.handlePasswordChange}
-                        />
-                    </label>
-                    <button type="submit">Register</button>
-                </form>
+                <h1> Registration </h1>
+                <div class="input-box">
+                    <p>{this.state.status}</p>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            Username
+                            <input
+                                name="username"
+                                type="text"
+                                value={this.state.username}
+                                onChange={this.handleUsernameChange}
+                            />
+                        </label>
+                        <br/>
+                        <label>
+                            Password
+                            <input
+                                name="password"
+                                type="password"
+                                value={this.state.password}
+                                onChange={this.handlePasswordChange}
+                            />
+                        </label>
+                        <br/>
+                        <button type="submit">Register</button>
+                    </form>
+                </div>
             </div>
         );
     }

@@ -11,3 +11,10 @@ class LinkListSerializer(serializers.ModelSerializer):
     class Meta:
         model = LinkList
         fields = ['url', 'owner', 'name', 'public', 'links']
+
+    def create(self, validated_data):
+        links = validated_data.pop('links', [])
+        instance = super().create(validated_data)
+        for element in links:
+            instance.links.add(link=element)
+        return instance

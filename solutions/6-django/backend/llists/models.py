@@ -9,6 +9,7 @@ class LinkList(models.Model):
         related_name='lists',
         on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+    description = models.CharField(max_length=250)
     public = models.BooleanField(default=False)
     links = models.ManyToManyField(
         Link,

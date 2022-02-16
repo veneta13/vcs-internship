@@ -1,32 +1,34 @@
 import React from 'react';
+import axios from 'axios';
 import {Link} from "react-router-dom";
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          listName: 'Link List',
-          listDescription: 'Add description here',
-          currentLink: 'https://www.example.com',
-          links: []
+            listName: 'Link List',
+            listDescription: 'Add description here',
+            listURL: '',
+            currentLink: 'https://www.example.com',
+            links: []
         };
     }
   
     handleNameChange = event => {
         this.setState({
-          listName: event.target.value
+            listName: event.target.value
         });
     }
 
     handleDescriptionChange = event => {
         this.setState({
-          listDescription: event.target.value
+            listDescription: event.target.value
         });
     }
 
     handleCurrentLinkChange = event => {
         this.setState({
-          currentLink: event.target.value
+            currentLink: event.target.value
         });
     }
 
@@ -36,10 +38,8 @@ class Home extends React.Component {
         const linkToAdd = this.state.currentLink;
 
         this.setState({
-          listName: this.state.listName,
-          listDescription: this.state.listDescription,
-          currentLink: '',
-          links: this.state.links.concat([linkToAdd])
+            currentLink: '',
+            links: this.state.links.concat([linkToAdd])
         });
 
         console.log(this.state);
@@ -47,20 +47,44 @@ class Home extends React.Component {
 
     handleShare = event => {
         event.preventDefault();
-
-        console.log('Share');
+        alert('Link to this list copied to clipboard');
+        navigator.clipboard.writeText(this.state.listURL);
     }
 
     handleDelete = event => {
         event.preventDefault();
 
-        console.log('Delete');
+        return axios({
+            method: 'delete',
+            url: 'http://localhost:8000/api/lists/',
+            headers: { 
+                'Authorization': 'Token ' + localStorage.getItem('token')
+            },
+            data: {
+                links: this.state.links,
+                name: this.state.listName
+            }})
+            .then(res => {
+                console.log(res);
+            });
     }
 
     handleSave = event => {
         event.preventDefault();
 
-        console.log('Save');
+        return axios({
+            method: 'post',
+            url: 'http://localhost:8000/api/lists/',
+            headers: { 
+                'Authorization': 'Token ' + localStorage.getItem('token')
+            },
+            data: {
+                links: this.state.links,
+                name: this.state.listName
+            }})
+            .then(res => {
+                console.log(res);
+            });
     }
 
     render() {
