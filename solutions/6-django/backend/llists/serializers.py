@@ -1,12 +1,13 @@
 from rest_framework import serializers
 from llists.models import LinkList
+# from links.models import Link
 from links.serializers import LinkSerializer
 
 
 class LinkListSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name="lists-detail")
-    owner = serializers.ReadOnlyField(source='owner.username')
-    links = LinkSerializer()
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    links = LinkSerializer(many=True)
 
     class Meta:
         model = LinkList
@@ -15,6 +16,8 @@ class LinkListSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         links = validated_data.pop('links', [])
         instance = super().create(validated_data)
-        for element in links:
-            instance.links.add(link=element)
+        for item in links:
+            # link = Link.objects.create(link=item)
+            # instance.links.add(link)
+            instance.links.create(link=item)
         return instance

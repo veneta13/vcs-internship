@@ -5,11 +5,11 @@ import {
   Route
 } from "react-router-dom";
 
-import Home from '../src/pages/Home';
-import LogIn from '../src/pages/LogIn';
-import Registration from '../src/pages/Registration';
+import Home from './pages/Home';
+import LogIn from './pages/LogIn';
+import Registration from './pages/Registration';
 
-import formStyle from './formStyle.css'
+// import formStyle from './formStyle.css'
 
 const Main = () => {
     return (
