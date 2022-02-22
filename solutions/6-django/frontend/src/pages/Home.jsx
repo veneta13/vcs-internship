@@ -79,8 +79,9 @@ class Home extends React.Component {
                 'Authorization': 'Token ' + localStorage.getItem('token')
             },
             data: {
-                links: this.state.links,
-                name: this.state.listName
+                links: [],
+                name: this.state.listName,
+                description: this.state.listDescription
             }})
             .then(res => {
                 console.log(res);
