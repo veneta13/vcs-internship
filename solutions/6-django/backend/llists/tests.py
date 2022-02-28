@@ -39,13 +39,14 @@ def test_get_public_list(client, list, other_public_list):
 # TODO
 @pytest.mark.django_db
 def test_create_empty_public_list(client):
-    data = {}
-    data['links'] = []
-    data['name'] = 'My public test list'
-    data['description'] = 'This is my test list description'
-    data['public'] = True
-    url = reverse('lists-list')
-    response = client.post(url, data)
+    response = client.post(
+        reverse('lists-list'),
+        {
+            'name': 'My public test list',
+            'description': 'This is my test list description',
+            'public': True
+        }
+    )
     assert response.json() == 201
 
 
