@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import LogIn from './pages/LogIn';
 import Registration from './pages/Registration';
 
-// import formStyle from './formStyle.css'
+import './formStyle.css'
 
 const Main = () => {
     return (

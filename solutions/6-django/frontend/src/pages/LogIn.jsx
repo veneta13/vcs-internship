@@ -27,7 +27,7 @@ class LogIn extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         console.log(this.state);
-        axios.post('http://localhost:8000/api/token-auth/', {
+        axios.post('http://localhost:8000/api/auth/', {
             username: this.state.username,
             password: this.state.password
         })

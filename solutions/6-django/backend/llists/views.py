@@ -7,8 +7,7 @@ from llists.serializers import LinkListSerializer
 
 
 class LinkListViewSet(viewsets.ModelViewSet,
-                      generics.ListAPIView,
-                      generics.RetrieveAPIView):
+                      generics.RetrieveUpdateDestroyAPIView):
     queryset = LinkList.objects.all()
     serializer_class = LinkListSerializer
     filter_backends = [IsOwnerOrPublicFilter]

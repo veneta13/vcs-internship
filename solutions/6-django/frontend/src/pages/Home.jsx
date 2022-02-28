@@ -8,6 +8,7 @@ class Home extends React.Component {
         this.state = {
             listName: 'Link List',
             listDescription: 'Add description here',
+            isPublic: true,
             listURL: '',
             currentLink: 'https://www.example.com',
             links: []
@@ -41,14 +42,21 @@ class Home extends React.Component {
             currentLink: '',
             links: this.state.links.concat([linkToAdd])
         });
-
-        console.log(this.state);
     }
 
     handleShare = event => {
         event.preventDefault();
+
         alert('Link to this list copied to clipboard');
         navigator.clipboard.writeText(this.state.listURL);
+    }
+
+    handleCheckboxChange = event => {
+        event.preventDefault();
+
+        this.setState({
+            isPublic: !this.state.isPublic
+        });
     }
 
     handleDelete = event => {
@@ -81,28 +89,48 @@ class Home extends React.Component {
             data: {
                 links: [],
                 name: this.state.listName,
-                description: this.state.listDescription
+                description: this.state.listDescription,
+                public: this.state.isPublic
             }})
             .then(res => {
-                console.log(res);
+                this.setState({
+                    listURL: res.data.url
+                })
+
+                this.state.links.forEach(currentLink => {
+                    axios({
+                        method: 'patch',
+                        url: res.data.url ,
+                        headers: { 
+                            'Authorization': 'Token ' + localStorage.getItem('token')
+                        },
+                        data: {
+                            link: currentLink,
+                        }
+                    })
+                });
             });
     }
 
     render() {
         return (
             <div>
+                <nav>
+                    <Link to="login">Log In</Link>
+                    <Link to="registration">Register</Link>
+                </nav>
                 <div>
                     <input type="text" value={this.state.listName} onChange={this.handleNameChange} />
                     <input type="text" value={this.state.listDescription} onChange={this.handleDescriptionChange} />
                 </div>
-                <nav>
-                    <Link to="login">LogIn</Link>
-                </nav>
                 <form>
                     <div>
                         {this.state.links.map((link, i) => <a href={link} key={i}>{link}</a>)}
                     </div>
                     <input type="text" value={this.state.currentLink} onChange={this.handleCurrentLinkChange} />
+                    <label htmlFor="publicCheckbox">Public</label>
+                    <input id="publicCheckbox" type="checkbox" defaultChecked={this.state.isPublic} onChange={this.handleCheckboxChange} />
+                    <br/>
                     <button type="submit" onClick={this.handleAdd}> Add </button>
                     <button type="submit" onClick={this.handleShare}> Share </button>
                     <button type="submit" onClick={this.handleDelete}> Delete </button>

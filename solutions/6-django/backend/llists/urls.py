@@ -11,7 +11,7 @@ router.register(r'links', link_views.LinkViewSet)
 router.register(r'lists', list_views.LinkListViewSet, basename='lists')
 
 urlpatterns = [
-    path('token-auth/', obtain_auth_token),
+    path('auth/', obtain_auth_token, name='auth'),
     path('users/', include('users.urls')),
     path('', include(router.urls))
 ]

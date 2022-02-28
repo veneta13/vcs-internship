@@ -13,46 +13,6 @@ h1 {
   position: absolute;
 }
 
-p {
-  top: 3%;
-  left: 30%;
-  font-size: 18px;
-  color: #95b8c8;
-  position: absolute;
-}
-
-label {
-  color: #95b8c8;
-  font-weight: bold;
-}
-
-button {
-  padding: 1%;
-  border-radius: 4px;
-  color: #EDEDED;
-  width: 30%;
-  top: 70%;
-  left: 35%;
-  margin: 0;
-  border: 1px solid #95b8c8;
-  background-color: #95b8c8;
-  position: absolute;
-}
-
-input {
-  padding: 1%;
-  border-radius: 4px;
-  color: #EDEDED;
-  width: 40%;
-  left: 35%;
-  margin-top: 8%;
-  margin-left: 5%;
-  border: 1px solid #95b8c8;
-  background-color: #95b8c8;
-  color: #EDEDED;
-  display: inline-block;
-}
-
 .input-box {
   box-sizing: content-box;
   width: 40%;
@@ -64,6 +24,42 @@ input {
   border-radius: 4px;
   background-color: #EDEDED;
   position: absolute;
+}
+.input-box p {
+  top: 3%;
+  left: 30%;
+  font-size: 18px;
+  color: #95b8c8;
+  position: absolute;
+}
+.input-box label {
+  color: #95b8c8;
+  font-weight: bold;
+}
+.input-box button {
+  padding: 1%;
+  border-radius: 4px;
+  color: #EDEDED;
+  width: 30%;
+  top: 70%;
+  left: 35%;
+  margin: 0;
+  border: 1px solid #95b8c8;
+  background-color: #95b8c8;
+  position: absolute;
+}
+.input-box input {
+  padding: 1%;
+  border-radius: 4px;
+  color: #EDEDED;
+  width: 40%;
+  left: 35%;
+  margin-top: 8%;
+  margin-left: 5%;
+  border: 1px solid #95b8c8;
+  background-color: #95b8c8;
+  color: #EDEDED;
+  display: inline-block;
 }
 
 /*# sourceMappingURL=formStyle.css.map */
