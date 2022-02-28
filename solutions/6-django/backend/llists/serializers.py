@@ -12,7 +12,6 @@ class LinkListSerializer(serializers.ModelSerializer):
     class Meta:
         model = LinkList
         fields = ['url', 'owner', 'name', 'public', 'links', 'description']
-
         extra_kwargs = {"links": {"required": False}}
 
     def create(self, validated_data):

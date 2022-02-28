@@ -1,39 +1,31 @@
 import pytest
 from django.urls import reverse
-from rest_framework.test import APIClient
-
-
-@pytest.fixture
-def client():
-    return APIClient()
+from conftest import anon_client
 
 
 @pytest.mark.django_db
-def test_user_not_found(client):
+def test_user_not_found(anon_client):
     url = reverse('auth')
     data = {'username': 'notUser', 'password': 'pass'}
-    response = client.post(url, data)
+    response = anon_client.post(url, data)
     assert response.status_code == 400
 
 
 @pytest.mark.django_db
-def test_registration(client):
-    # url = '/api/users/registration/'  # TODO reverse
+def test_registration(anon_client):
     url = reverse('register-list')
     data = {'username': 'testuser1', 'password': 'test1234'}
-    response = client.post(url, data)
+    response = anon_client.post(url, data)
     assert response.status_code == 201
     assert response.data == {'username': 'testuser1'}
 
-from django.contrib.auth.models import User
 
 @pytest.mark.django_db
-def test_login(client):
+def test_login(anon_client):
     data = {'username': 'testuser', 'password': 'test1234'}
-    response = client.post(reverse('register-list'), data)
+    response = anon_client.post(reverse('register-list'), data)
     assert response.status_code == 201
     assert response.data == {'username': 'testuser'}
 
-    # TODO fix login
-    response = client.post(reverse('auth'), data)
-    assert response.data == ''
+    response = anon_client.post(reverse('auth'), data)
+    assert response.status_code == 200

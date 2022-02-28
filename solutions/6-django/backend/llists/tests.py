@@ -1,75 +1,64 @@
 import pytest
 from django.urls import reverse
-from rest_framework.authtoken.models import Token
-from rest_framework.test import APIClient
+import conftest
 
-
-# @pytest.fixture
-# def client(db):
-#     api_client = APIClient()
-#     token = Token.objects.get_or_create(user__username='testuser')
-#     api_client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-#     return api_client
-
-
-# @pytest.fixture
-# def list(db):
-#     return LinkList.objects.get_or_create(links=[],
-#                                           name='Test List',
-#                                           description='Test Description',
-#                                           public=True)
-
-# reverse('api/lists')
 
 @pytest.mark.django_db
-def test_get_list_test(client):
+def test_get_list_test(client, list):
     response = client.get(reverse('lists-list'))
+    assert response.status_code == 200
+    assert response.data['results'][0]['name'] == 'Test List'
+
+
+@pytest.mark.django_db
+def test_get_own_list(client, list):
+    url = reverse('lists-detail', kwargs={'pk': 1})
+    response = client.get(url)
+    assert response.status_code == 200
+    assert response.data.get('name') == 'Test List'
+    assert response.data.get('public') is True
+    assert response.data.get('links')[0].get('link') == 'http://www.google.com'
+    assert response.data.get(
+        'description') == 'Test Description'
+
+
+@pytest.mark.django_db
+def test_get_private_list(client, list, other_private_list):
+    url = reverse('lists-detail', kwargs={'pk': 2})
+    response = client.get(url)
+    assert response.status_code == 404
+
+
+@pytest.mark.django_db
+def test_get_public_list(client, list, other_public_list):
+    url = reverse('lists-detail', kwargs={'pk': 2})
+    response = client.get(url)
     assert response.status_code == 200
 
 
-# @pytest.mark.django_db
-# def test_get_own_list(client):
-#     url = reverse('api-lists', kwargs={'pk': 1})
-#     response = client.get(url)
-#     assert response.status_code == 200
-#     assert response.data.get('name') == 'Test List 1'
-#     assert response.data.get('public') is True
-#     assert response.data.get('links')[0].get('link') == 'http://www.abc.com'
-#     assert response.data.get(
-#         'description') == 'This is a list description for list 1.'
+# TODO
+@pytest.mark.django_db
+def test_create_empty_public_list(client):
+    data = {}
+    data['links'] = []
+    data['name'] = 'My public test list'
+    data['description'] = 'This is my test list description'
+    data['public'] = True
+    url = reverse('lists-list')
+    response = client.post(url, data)
+    assert response.json() == 201
 
 
-# @pytest.mark.django_db
-# def test_get_private_list(client):
-#     response = client.get('http://testserver/api/lists/2/')
-#     assert response.status_code == 404
-
-
-# @pytest.mark.django_db
-# def test_get_public_list(client):
-#     response = client.get('http://testserver/api/lists/3/')
-#     assert response.status_code == 200
-
-
-# @pytest.mark.django_db
-# def test_create_empty_public_list(client):
-#     data = {'links': [],
-#             'name': 'My public test list',
-#             'description': 'This is my test list description',
-#             'public': True
-#             }
-#     response = client.post('http://testserver/api/lists/3/', data)
-#     assert response.status_code == 201
-
-
+# TODO
 # @pytest.mark.django_db
 # def test_create_empty_private_list(client):
 #     data = {'links': [],
 #             'name': 'My private test list',
 #             'description': 'This is my test list description',
-#             'public': True
+#             'public': False
 #             }
-#     response = client.post('http://testserver/api/lists/3/', data)
+#     url = reverse('lists-list')
+#      response = client.post(url, data)
 #     assert response.status_code == 201
 
 
@@ -80,7 +69,6 @@ def test_get_list_test(client):
 #             'description': 'This is my test list description',
 #             'public': True
 #             }
-#     # TODO
 #     response = client.post('http://testserver/api/lists/3/', data)
 #     assert response.status_code == 201
 #     # TODO add another PUT request to the response list URL
@@ -98,20 +86,22 @@ def test_get_list_test(client):
 #     # TODO add another PUT request to the response list URL
 
 
-# @pytest.mark.django_db
-# def test_delete_own_list(client):
-#     response = client.delete('http://testserver/api/lists/1/')
-#     assert response.status_code == 204
+@pytest.mark.django_db
+def test_delete_own_list(client, list):
+    url = reverse('lists-detail', kwargs={'pk': 1})
+    response = client.delete(url)
+    assert response.status_code == 204
 
 
-# @pytest.mark.django_db
-# def test_unsucessfull_deletion_list(client):
-#     response = client.delete('http://testserver/api/lists/2/')
-#     assert response.status_code == 403
+@pytest.mark.django_db
+def test_unsucessfull_deletion_private_list(client, list, other_private_list):
+    url = reverse('lists-detail', kwargs={'pk': 2})
+    response = client.delete(url)
+    assert response.status_code == 404
 
 
-# @pytest.mark.django_db
-# def test_list_links(client):
-#     response = client.get('http://testserver/api/lists/1/')
-#     assert response.status_code == 200
-#     # TODO check for link urls as response.data.links objects
+@pytest.mark.django_db
+def test_unsucessfull_deletion_public_list(client, list, other_public_list):
+    url = reverse('lists-detail', kwargs={'pk': 2})
+    response = client.delete(url)
+    assert response.status_code == 403
