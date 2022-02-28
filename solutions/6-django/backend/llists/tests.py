@@ -36,7 +36,6 @@ def test_get_public_list(client, list, other_public_list):
     assert response.status_code == 200
 
 
-# TODO
 @pytest.mark.django_db
 def test_create_empty_public_list(client):
     response = client.post(
@@ -47,44 +46,56 @@ def test_create_empty_public_list(client):
             'public': True
         }
     )
-    assert response.json() == 201
+    assert response.status_code == 201
 
 
-# TODO
-# @pytest.mark.django_db
-# def test_create_empty_private_list(client):
-#     data = {'links': [],
-#             'name': 'My private test list',
-#             'description': 'This is my test list description',
-#             'public': False
-#             }
-#     url = reverse('lists-list')
-#      response = client.post(url, data)
-#     assert response.status_code == 201
+@pytest.mark.django_db
+def test_create_empty_private_list(client):
+    response = client.post(
+        reverse('lists-list'),
+        {
+            'name': 'My public test list',
+            'description': 'This is my test list description',
+            'private': True
+        }
+    )
+    assert response.status_code == 201
 
 
-# @pytest.mark.django_db
-# def test_create_public_list_with_links(client):
-#     data = {'links': [],
-#             'name': 'My public test list',
-#             'description': 'This is my test list description',
-#             'public': True
-#             }
-#     response = client.post('http://testserver/api/lists/3/', data)
-#     assert response.status_code == 201
-#     # TODO add another PUT request to the response list URL
+@pytest.mark.django_db
+def test_create_public_list_with_links(client):
+    response = client.post(
+        reverse('lists-list'),
+        {
+            'name': 'My public test list',
+            'description': 'This is my test list description',
+            'public': True
+        }
+    )
+    assert response.status_code == 201
+
+    links = ['https://www.google.com', 'https://www.example.com']
+    for currentLink in links:
+        new_resp = client.patch(response.data['url'], {'link': currentLink})
+        assert new_resp.status_code == 200
 
 
-# @pytest.mark.django_db
-# def test_create_private_list_with_links(client):
-#     data = {'links': [],
-#             'name': 'My private test list',
-#             'description': 'This is my test list description',
-#             'public': False
-#             }
-#     response = client.post('http://testserver/api/lists/3/', data)
-#     assert response.status_code == 201
-#     # TODO add another PUT request to the response list URL
+@pytest.mark.django_db
+def test_create_private_list_with_links(client):
+    response = client.post(
+        reverse('lists-list'),
+        {
+            'name': 'My public test list',
+            'description': 'This is my test list description',
+            'public': False
+        }
+    )
+    assert response.status_code == 201
+
+    links = ['https://www.google.com', 'https://www.example.com']
+    for currentLink in links:
+        new_resp = client.patch(response.data['url'], {'link': currentLink})
+        assert new_resp.status_code == 200
 
 
 @pytest.mark.django_db
