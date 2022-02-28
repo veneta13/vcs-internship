@@ -56,7 +56,7 @@ def test_create_empty_private_list(client):
         {
             'name': 'My public test list',
             'description': 'This is my test list description',
-            'private': True
+            'public': False
         }
     )
     assert response.status_code == 201
