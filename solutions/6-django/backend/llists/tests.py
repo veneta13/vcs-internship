@@ -4,12 +4,12 @@ from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
 
-@pytest.fixture
-def client(db):
-    api_client = APIClient()
-    token = Token.objects.get_or_create(user__username='testuser')
-    api_client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
-    return api_client
+# @pytest.fixture
+# def client(db):
+#     api_client = APIClient()
+#     token = Token.objects.get_or_create(user__username='testuser')
+#     api_client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+#     return api_client
 
 
 # @pytest.fixture
@@ -23,8 +23,7 @@ def client(db):
 
 @pytest.mark.django_db
 def test_get_list_test(client):
-    url = reverse('api-lists')
-    response = client.get(url)
+    response = client.get(reverse('lists-list'))
     assert response.status_code == 200
 
 
