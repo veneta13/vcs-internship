@@ -1,3 +1,4 @@
+from email.mime import base
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
@@ -9,6 +10,10 @@ router = routers.DefaultRouter()
 router.register(r'users', user_views.UserViewSet)
 router.register(r'links', link_views.LinkViewSet)
 router.register(r'lists', list_views.LinkListViewSet, basename='lists')
+router.register(
+    r'^lists/(?P<pk_list>[^/.]+)$',
+    list_views.RemoveLinkViewSet,
+    basename='delete-link')
 
 urlpatterns = [
     path('auth/', obtain_auth_token, name='auth'),
