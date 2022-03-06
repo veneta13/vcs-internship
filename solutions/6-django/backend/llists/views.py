@@ -9,12 +9,25 @@ from llists.serializers import LinkListSerializer
 
 from links.models import Link
 
+
 class LinkListViewSet(viewsets.ModelViewSet,
                       generics.RetrieveUpdateDestroyAPIView):
     queryset = LinkList.objects.all()
     serializer_class = LinkListSerializer
     filter_backends = [IsOwnerOrPublicFilter]
     permission_classes = [IsOwnerOrPublic]
+
+    def update(self, request, *args, **kwargs):
+        new_link, created = Link.objects.update_or_create(
+            link=request.data.get('links'),
+            defaults={'link': request.data.get('link')},
+        )
+        instance = self.get_object()
+        if created:
+            instance.links.add(new_link)
+        instance.save()
+
+        return Response(status=status.HTTP_200_OK)
 
 
 class RemoveLinkViewSet(APIView):
