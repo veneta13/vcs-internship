@@ -26,9 +26,7 @@ class LinkListViewSet(viewsets.ModelViewSet,
         )
 
         instance = self.get_object()
-        if instance.links.all().filter(
-          link=request.data.get('link')) is not []:
-            instance.links.add(new_link)
+        instance.links.add(new_link)
         instance.save()
 
         link_serializer = LinkSerializer(
