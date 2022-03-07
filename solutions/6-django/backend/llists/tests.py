@@ -1,4 +1,5 @@
 import pytest
+from collections import OrderedDict
 from django.urls import reverse
 import conftest
 
@@ -85,7 +86,9 @@ def test_add_links_to_public_list(client):
     assert response.status_code == 201
     assert response.data['url'] == 'http://testserver/api/lists/1/'
 
-    links = ['https://www.google.com', 'https://www.example.com']
+    links = ['https://www.google.com',
+             'https://www.example.com',
+             'https://www.google.com']
 
     for currentLink in links:
         link_resp = client.patch(
@@ -96,16 +99,19 @@ def test_add_links_to_public_list(client):
 
     add_link_response = client.get(reverse('lists-detail', kwargs={'pk': 1}))
     assert add_link_response.status_code == 200
-    assert add_link_response.data.get('links') == [
-        {
-            'link': 'http://www.google.com',
-            'url': 'http://testserver/api/links/1/'
-        },
-        {
-            'link': 'http://www.example.com',
-            'url': 'http://testserver/api/links/2/'
-        }
+
+    result = [
+        OrderedDict([('url',
+                      'http://testserver/api/links/1/'),
+                     ('link',
+                      'https://www.google.com')]),
+        OrderedDict([('url',
+                      'http://testserver/api/links/2/'),
+                     ('link',
+                      'https://www.example.com')]),
     ]
+
+    assert add_link_response.data.get('links') == result
 
 
 @pytest.mark.django_db
@@ -132,16 +138,19 @@ def test_add_links_to_private_list(client):
 
     add_link_response = client.get(reverse('lists-detail', kwargs={'pk': 1}))
     assert add_link_response.status_code == 200
-    assert add_link_response.data.get('links') == [
-        {
-            'link': 'http://www.google.com',
-            'url': 'http://testserver/api/links/1/'
-        },
-        {
-            'link': 'http://www.example.com',
-            'url': 'http://testserver/api/links/2/'
-        }
+
+    result = [
+        OrderedDict([('url',
+                      'http://testserver/api/links/1/'),
+                     ('link',
+                      'https://www.google.com')]),
+        OrderedDict([('url',
+                      'http://testserver/api/links/2/'),
+                     ('link',
+                      'https://www.example.com')]),
     ]
+
+    assert add_link_response.data.get('links') == result
 
 
 @pytest.mark.django_db
