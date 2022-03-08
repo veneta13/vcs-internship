@@ -113,6 +113,17 @@ def test_add_links_to_public_list(client):
 
     assert add_link_response.data.get('links') == result
 
+    url = reverse('lists-detail', kwargs={'pk': 1})
+    response = client.get(url)
+    assert response.status_code == 200
+    assert response.data.get('name') == 'My public test list'
+    assert response.data.get('public') is True
+    assert response.data.get('links')[0].get(
+        'link') == 'https://www.google.com'
+    assert response.data.get('links')[1].get(
+        'link') == 'https://www.example.com'
+
+
 
 @pytest.mark.django_db
 def test_add_links_to_private_list(client):
