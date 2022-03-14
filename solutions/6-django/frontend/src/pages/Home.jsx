@@ -4,6 +4,8 @@ import axios from 'axios';
 
 
 const Home = () => {
+    let params = useLocation();
+
     let [state, setState] = useState({
         listName: 'Link List',
         listDescription: 'Add description here',
@@ -13,8 +15,6 @@ const Home = () => {
         links: []
     });
 
-    let params = useLocation();
-
     if (params.state !== null) {
         setState({
             listName: state.listName,
@@ -23,6 +23,7 @@ const Home = () => {
             listURL: params.state.linkURL,
             currentLink: state.currentLink,
             links: [],
+            fullLinks: [],
         });
     }
 
@@ -42,6 +43,7 @@ const Home = () => {
                         listURL: state.listURL,
                         currentLink: state.currentLink,
                         links: state.links,
+                        fullLinks: res.data.links,
                     });
                     res.data.links.forEach(e => state.links.push(e.link));
                 });
@@ -56,6 +58,7 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: state.currentLink,
             links: state.links,
+            fullLinks: state.fullLinks,
         });
     }
 
@@ -67,6 +70,7 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: state.currentLink,
             links: state.links,
+            fullLinks: state.fullLinks,
         });
     }
 
@@ -78,6 +82,7 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: event.target.value,
             links: state.links,
+            fullLinks: state.fullLinks,
         });
     }
 
@@ -93,6 +98,7 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: '',
             links: state.links.concat([linkToAdd]),
+            fullLinks: state.fullLinks,
         });
     }
 
@@ -112,6 +118,7 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: state.currentLink,
             links: state.links,
+            fullLinks: state.fullLinks,
         });
     }
 
@@ -152,6 +159,7 @@ const Home = () => {
                     listURL: res.data.url,
                     currentLink: state.currentLink,
                     links: state.links,
+                    fullLinks: res.data.links,
                 })
 
                 state.links.forEach(currentLink => {
@@ -167,10 +175,6 @@ const Home = () => {
                     })
                 });
             });
-    }
-
-    const getLinkData = link => {
-
     }
 
     return (
@@ -189,17 +193,19 @@ const Home = () => {
                 <br/>
 
                 <div>
-                    {console.log(state)}
-                    {state.links.map(link => {
-                        return (
-                            <div class="link-preview-box">
-                                <img src="#"/>
-                                <a href={link}> placeholder name </a>
-                                <p>placeholder description</p>
-                                <button type="submit"> Remove link </button>
-                            </div>
+                    {console.log(state.fullLinks)}
+                    {
+                        state.fullLinks.forEach(link => {
+                            return (
+                                <div class="link-preview-box">
+                                    <img src={link.image}/>
+                                    <a href={link.link}> {link.title} </a>
+                                    <p> {link.description} </p>
+                                    <button type="submit"> Remove link </button>
+                                </div>
+                            )}
                         )
-                    })}
+                    }
                 </div>
 
                 <button type="submit" onClick={() => handleAdd}> Add </button>
