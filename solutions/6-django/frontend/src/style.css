@@ -1,0 +1,143 @@
+html {
+  margin: 0;
+  background-color: #4a566c;
+  font: 18px Helvetica, sans-serif;
+  display: flex;
+}
+
+h1 {
+  font-size: 25px;
+  color: #95b8c8;
+  top: 15%;
+  left: 30%;
+  position: absolute;
+}
+
+nav {
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #95b8c8;
+  font: 18px Helvetica, sans-serif;
+  position: fixed;
+}
+nav ul {
+  list-style-type: none;
+  display: flex;
+}
+nav a {
+  margin: 2px 15px;
+  color: #EDEDED;
+  text-decoration: none;
+}
+
+.input-box {
+  border: 2px double #95b8c8;
+  border-radius: 4px;
+  background-color: #EDEDED;
+  box-sizing: content-box;
+  width: 40%;
+  height: 40%;
+  top: 25%;
+  left: 30%;
+  padding: 2%;
+  position: absolute;
+}
+.input-box p {
+  top: 3%;
+  left: 30%;
+  font-size: 18px;
+  color: #95b8c8;
+  position: absolute;
+}
+.input-box label {
+  color: #95b8c8;
+  font-weight: bold;
+}
+.input-box button {
+  padding: 1%;
+  border-radius: 4px;
+  color: #EDEDED;
+  width: 30%;
+  top: 70%;
+  left: 35%;
+  margin: 0;
+  border: 1px solid #95b8c8;
+  background-color: #95b8c8;
+  position: absolute;
+}
+.input-box input {
+  padding: 1%;
+  border-radius: 4px;
+  color: #EDEDED;
+  width: 40%;
+  left: 35%;
+  margin-top: 8%;
+  margin-left: 5%;
+  border: 1px solid #95b8c8;
+  background-color: #95b8c8;
+  color: #EDEDED;
+  display: inline-block;
+}
+
+.home {
+  border: 2px double #95b8c8;
+  border-radius: 4px;
+  background-color: #EDEDED;
+  width: 50%;
+  top: 25%;
+  left: 25%;
+  padding: 2%;
+  position: absolute;
+  display: block;
+}
+.home input {
+  width: 70%;
+  left: 15%;
+  padding: 10px 5px;
+  font-size: 18px;
+  color: #95b8c8;
+  border: none;
+  border-bottom: 1px solid #4a566c;
+  background: none;
+  display: block;
+  position: relative;
+}
+.home .list-info {
+  width: 100%;
+  margin: 30px 0;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.profile h1 {
+  font-size: 25px;
+  color: #95b8c8;
+  top: 10%;
+  left: 43%;
+  font-size: 40px;
+  position: absolute;
+}
+.profile h2 {
+  font-size: 28px;
+  color: #95b8c8;
+  text-decoration: none;
+}
+.profile p {
+  color: #4a566c;
+}
+.profile .lists {
+  border: 2px double #95b8c8;
+  border-radius: 4px;
+  background-color: #EDEDED;
+  width: 50%;
+  top: 30%;
+  left: 25%;
+  background-color: #EDEDED;
+  position: absolute;
+}
+.profile .list {
+  margin: 50px auto;
+}
+
+/*# sourceMappingURL=style.css.map */

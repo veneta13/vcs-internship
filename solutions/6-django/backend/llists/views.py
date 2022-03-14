@@ -39,7 +39,7 @@ class LinkListViewSet(viewsets.ModelViewSet,
         link_serializer.is_valid(raise_exception=True)
         self.perform_update(link_serializer)
 
-        return Response(link_serializer.data)
+        return Response(dict(link_serializer.data))
 
 
 class RemoveLinkViewSet(APIView):

@@ -1,83 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-class Registration extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          status: 'Enter username and password',
-          username: '',
-          password: '',
-        };
-    }
+const Registration = () => {
+    let navigate = useNavigate();
+    
+    let [state, setState] = useState({
+        status: 'Enter username and password',
+        username: '',
+        password: '',
+    });
 
-    handleUsernameChange = event => {
+    const handleUsernameChange = event => {
         event.preventDefault();
-        this.setState({
-            username: event.target.value
+        setState({
+            status: state.status,
+            username: event.target.value,
+            password: state.password
         });
     }
 
-    handlePasswordChange = event => {
+    const handlePasswordChange = event => {
         event.preventDefault();
-        this.setState({
+        setState({
+            status: state.status,
+            username: state.username,
             password: event.target.value,
         });
     }
 
-    handleSubmit = event => {
+    const handleSubmit = event => {
         event.preventDefault();
 
+        console.log(state)
+
         axios.post('http://localhost:8000/api/users/registration/', {
-            username: this.state.username,
-            password: this.state.password
+            username: state.username,
+            password: state.password
         })
             .then(res => {
-                if (res.hasOwnProperty('username') && res.username === this.state.username) {
-                    this.setState({
+                if (res.hasOwnProperty('username') && res.username === state.username) {
+                    setState({
                         status: 'Successfully created a new user'
                     });
+                    navigate("/login");
                 } else {
-                    this.setState({
+                    setState({
                         status: 'Error: Could not create a new user'
                     });
                 }
             });
     }
 
-    render() {
-        return (
-            <div>
-                <h1> Registration </h1>
-                <div class="input-box">
-                    <p>{this.state.status}</p>
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                            Username
-                            <input
-                                name="username"
-                                type="text"
-                                value={this.state.username}
-                                onChange={this.handleUsernameChange}
-                            />
-                        </label>
-                        <br/>
-                        <label>
-                            Password
-                            <input
-                                name="password"
-                                type="password"
-                                value={this.state.password}
-                                onChange={this.handlePasswordChange}
-                            />
-                        </label>
-                        <br/>
-                        <button type="submit">Register</button>
-                    </form>
-                </div>
+    return (
+        <div>
+            <h1> Registration </h1>
+            <div class="input-box">
+                <p>{state.status}</p>
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Username
+                        <input
+                            name="username"
+                            type="text"
+                            value={state.username}
+                            onChange={handleUsernameChange}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        Password
+                        <input
+                            name="password"
+                            type="password"
+                            value={state.password}
+                            onChange={handlePasswordChange}
+                        />
+                    </label>
+                    <br/>
+                    <button type="submit">Register</button>
+                </form>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default Registration;

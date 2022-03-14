@@ -1,0 +1,167 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #95b8c8;
+$secondary-color: #4a566c;
+$tertiary-color: #EDEDED;
+$radius: 4px;
+$text-size: 18px;
+
+@mixin accent() {
+  padding: 1%;
+  border-radius: $radius;
+  color: $tertiary-color;
+}
+
+@mixin title() {
+  font-size: 25px;
+  color: $primary-color;
+}
+
+@mixin box {
+  border: 2px double $primary-color;
+  border-radius: $radius;
+  background-color: $tertiary-color;
+}
+
+html {
+  margin: 0;
+  background-color: $secondary-color;
+  font: $text-size $font-stack;
+  display: flex;
+}
+
+h1 {
+  @include title;
+  top: 15%;
+  left: 30%;
+  position: absolute;
+}
+
+nav {
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: $primary-color;
+  font: $text-size $font-stack;
+  position: fixed;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+  }
+
+  a {
+    margin: 2px 15px;
+    color: $tertiary-color;
+    text-decoration:none;
+  }
+}
+
+.input-box {
+  @include box;
+  box-sizing: content-box;
+  width: 40%;
+  height: 40%;
+  top: 25%;
+  left: 30%;
+  padding: 2%;
+  position: absolute;
+
+  p {
+    top: 3%;
+    left: 30%;
+    font-size: $text-size;
+    color: $primary-color;
+    position: absolute;
+  }
+  
+  label {
+    color: $primary-color;
+    font-weight: bold;
+  }
+  
+  button {
+    @include accent;
+    width: 30%;
+    top: 70%;
+    left: 35%;
+    margin: 0;
+    border: 1px solid $primary-color;
+    background-color: $primary-color;
+    position: absolute;
+  }
+  
+  input {
+    @include accent;
+    width: 40%;
+    left: 35%;
+    margin-top: 8%;
+    margin-left: 5%;
+    border: 1px solid $primary-color;
+    background-color: $primary-color;
+    color: $tertiary-color;
+    display: inline-block;
+  }
+}
+
+.home {
+  @include box;
+  width: 50%;
+  top: 25%;
+  left: 25%;
+  padding: 2%;
+  position: absolute;
+  display: block;
+
+  input {
+    width: 70%;
+    left: 15%;
+    padding: 10px 5px;
+    font-size: 18px;
+    color: $primary-color;
+    border: none;
+    border-bottom: 1px solid $secondary-color;
+    background: none;
+    display: block;
+    position: relative;
+  }
+
+  .list-info {
+    width: 100%;
+    margin: 30px 0;
+    margin-bottom: 60px;
+    position: relative;
+  }
+}
+
+.profile {
+  h1 {
+    @include title;
+    top: 10%;
+    left: 43%;
+    font-size: 40px;
+    position: absolute;
+  }
+
+  h2 {
+  font-size: 28px;
+    color: $primary-color;
+    text-decoration: none;
+  }
+
+  p {
+    color: $secondary-color;
+  }
+
+  .lists {
+    @include box;
+    width: 50%;
+    top: 30%;
+    left: 25%;
+    background-color: $tertiary-color;
+    position: absolute;
+  }
+
+  .list {
+    margin: 50px auto;
+  }
+}
