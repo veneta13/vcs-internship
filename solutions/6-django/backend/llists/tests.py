@@ -104,11 +104,23 @@ def test_add_links_to_public_list(client):
         OrderedDict([('url',
                       'http://testserver/api/links/1/'),
                      ('link',
-                      'https://www.google.com')]),
+                      'https://www.google.com'),
+                     ('title',
+                      ''),
+                     ('description',
+                     ''),
+                     ('image',
+                     '')]),
         OrderedDict([('url',
                       'http://testserver/api/links/2/'),
                      ('link',
-                      'https://www.example.com')]),
+                      'https://www.example.com'),
+                     ('title',
+                      ''),
+                     ('description',
+                     ''),
+                     ('image',
+                     '')]),
     ]
 
     assert add_link_response.data.get('links') == result
@@ -154,11 +166,23 @@ def test_add_links_to_private_list(client):
         OrderedDict([('url',
                       'http://testserver/api/links/1/'),
                      ('link',
-                      'https://www.google.com')]),
+                      'https://www.google.com'),
+                     ('title',
+                      ''),
+                     ('description',
+                     ''),
+                     ('image',
+                     '')]),
         OrderedDict([('url',
                       'http://testserver/api/links/2/'),
                      ('link',
-                      'https://www.example.com')]),
+                      'https://www.example.com'),
+                     ('title',
+                      ''),
+                     ('description',
+                     ''),
+                     ('image',
+                     '')]),
     ]
 
     assert add_link_response.data.get('links') == result
@@ -194,7 +218,10 @@ def test_remove_link_from_list(client, list):
     assert response.data.get('public') is True
     assert response.data.get('links')[0] == {
         'link': 'http://www.google.com',
-        'url': 'http://testserver/api/links/1/'
+        'url': 'http://testserver/api/links/1/',
+        'title': '',
+        'description': '',
+        'image': ''
     }
 
     response = client.delete(
