@@ -12,7 +12,8 @@ const Home = () => {
         isPublic: true,
         listURL: 'http://localhost:8000/api/lists/1/',
         currentLink: 'https://www.example.com',
-        links: []
+        links: [],
+        fullLinks: []
     });
 
     if (params.state !== null) {
@@ -193,15 +194,14 @@ const Home = () => {
                 <br/>
 
                 <div>
-                    {console.log(state.fullLinks)}
                     {
-                        state.fullLinks.forEach(link => {
+                        state.fullLinks.map(link => {
                             return (
                                 <div class="link-preview-box">
                                     <img src={link.image}/>
                                     <a href={link.link}> {link.title} </a>
                                     <p> {link.description} </p>
-                                    <button type="submit"> Remove link </button>
+                                    <button type="submit" onClick={() => removeLink}> Remove link </button>
                                 </div>
                             )}
                         )

@@ -35,18 +35,16 @@ const Profile = () =>{
         <div class="profile">
             <h1> My Lists </h1>
             <div class="lists">
-                {state.links.map(link => {
-                    return (
-                        <div class="list"> 
-                            <h2 onClick={() => clickOnLink(link.url)}>
-                                {link.name}
-                            </h2> 
-                            <p>
-                                {link.description}
-                            </p> 
-                        </div>
-                    )
-                })}
+                {
+                    state.links.map(link => {
+                        return (
+                            <div class="list"> 
+                                <h2 onClick={() => clickOnLink(link.url)}> {link.name} </h2> 
+                                <p> {link.description} </p> 
+                            </div>
+                        )
+                    })
+                }
             </div>
         </div>
     );
