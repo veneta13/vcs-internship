@@ -32,13 +32,13 @@ const Profile = () =>{
     }
 
     return (
-        <div class="profile">
+        <div className="profile">
             <h1> My Lists </h1>
-            <div class="lists">
+            <div className="lists">
                 {
                     state.links.map(link => {
                         return (
-                            <div class="list"> 
+                            <div className="list"> 
                                 <h2 onClick={() => clickOnLink(link.url)}> {link.name} </h2> 
                                 <p> {link.description} </p> 
                             </div>

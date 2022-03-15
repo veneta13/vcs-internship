@@ -13,7 +13,7 @@ const Home = () => {
         listURL: 'http://localhost:8000/api/lists/1/',
         currentLink: 'https://www.example.com',
         links: [],
-        fullLinks: []
+        isLoading: true // TODO too many re-renders
     });
 
     if (params.state !== null) {
@@ -24,16 +24,16 @@ const Home = () => {
             listURL: params.state.linkURL,
             currentLink: state.currentLink,
             links: [],
-            fullLinks: [],
+            isLoading: true
         });
     }
 
     useEffect(() => {
-        if (state.listURL !== '') {
-            return axios({
+        if (state.listURL !== '' && state.isLoading) {
+            axios({
                 method: 'get',
                 url: state.listURL,
-                headers: { 
+                headers: {
                     'Authorization': 'Token ' + localStorage.getItem('token')
                 }})
                 .then(res => {
@@ -43,10 +43,10 @@ const Home = () => {
                         isPublic: res.data.public,
                         listURL: state.listURL,
                         currentLink: state.currentLink,
-                        links: state.links,
-                        fullLinks: res.data.links,
+                        links: res.data.links,
+                        isLoading: false
                     });
-                    res.data.links.forEach(e => state.links.push(e.link));
+                    console.log(res.data.links)
                 });
         }
     }, [])
@@ -59,7 +59,6 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: state.currentLink,
             links: state.links,
-            fullLinks: state.fullLinks,
         });
     }
 
@@ -71,7 +70,6 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: state.currentLink,
             links: state.links,
-            fullLinks: state.fullLinks,
         });
     }
 
@@ -83,14 +81,19 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: event.target.value,
             links: state.links,
-            fullLinks: state.fullLinks,
         });
     }
 
     const handleAdd = event => {
         event.preventDefault();
 
-        const linkToAdd = state.currentLink;
+        const linkToAdd = {
+            description: "",
+            image: "",
+            link: state.linkToAdd,
+            title: "",
+            url: ""
+        }
 
         setState({
             listName: state.listName,
@@ -99,7 +102,6 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: '',
             links: state.links.concat([linkToAdd]),
-            fullLinks: state.fullLinks,
         });
     }
 
@@ -119,14 +121,13 @@ const Home = () => {
             listURL: state.listURL,
             currentLink: state.currentLink,
             links: state.links,
-            fullLinks: state.fullLinks,
         });
     }
 
     const handleDelete = event => {
         event.preventDefault();
 
-        return axios({
+        axios({
             method: 'delete',
             url: state.listURL,
             headers: { 
@@ -140,7 +141,7 @@ const Home = () => {
     const handleSave = event => {
         event.preventDefault();
 
-        return axios({
+        axios({
             method: 'post',
             url: state.listURL,
             headers: { 
@@ -160,7 +161,6 @@ const Home = () => {
                     listURL: res.data.url,
                     currentLink: state.currentLink,
                     links: state.links,
-                    fullLinks: res.data.links,
                 })
 
                 state.links.forEach(currentLink => {
@@ -171,33 +171,46 @@ const Home = () => {
                             'Authorization': 'Token ' + localStorage.getItem('token')
                         },
                         data: {
-                            link: currentLink,
+                            link: currentLink.link,
                         }
                     })
                 });
             });
     }
 
+    const removeLink = event => {
+        axios({
+            method: 'delete',
+            url: state.listURL, //TODO how to address /api/lists/<pk_list>/<pk>/
+            headers: { 
+                'Authorization': 'Token ' + localStorage.getItem('token')
+            }})
+            .then(res => {
+                console.log(res);
+            });
+    }
+
     return (
-        <div class="home">
-            <div class="list-info">
+        <div className="home">
+            <div className="list-info">
                 <input type="text" value={state.listName} onChange={handleNameChange} />
                 <br/>
                 <input type="text" value={state.listDescription} onChange={handleDescriptionChange} />
             </div>
+
             <form>
                 <input type="text" value={state.currentLink} onChange={handleCurrentLinkChange} />
                 <br/>
 
-                <label htmlFor="publicCheckbox">Is Public?</label>
                 <input id="publicCheckbox" type="checkbox" defaultChecked={state.isPublic} onChange={handleCheckboxChange} />
+                <label htmlFor="publicCheckbox">Is Public?</label>
                 <br/>
 
                 <div>
                     {
-                        state.fullLinks.map(link => {
+                        state.links.map(link => {
                             return (
-                                <div class="link-preview-box">
+                                <div className="link-preview-box">
                                     <img src={link.image}/>
                                     <a href={link.link}> {link.title} </a>
                                     <p> {link.description} </p>
@@ -208,10 +221,10 @@ const Home = () => {
                     }
                 </div>
 
-                <button type="submit" onClick={() => handleAdd}> Add </button>
-                <button type="submit" onClick={() => handleShare}> Share </button>
-                <button type="submit" onClick={() => handleDelete}> Delete </button>
-                <button type="submit" onClick={() => handleSave}> Save </button>
+                <button type="submit" onClick={() => handleAdd}> Add Link To List </button>
+                <button type="submit" onClick={() => handleShare}> Share List Link </button>
+                <button type="submit" onClick={() => handleDelete}> Delete List </button>
+                <button type="submit" onClick={() => handleSave}> Save List </button>
             </form>
         </div>
     );

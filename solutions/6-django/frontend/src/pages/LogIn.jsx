@@ -44,7 +44,7 @@ const LogIn = () =>{
     return (
         <div>
             <h1> Log In </h1>
-            <div class="input-box">
+            <div className="input-box">
                 <form onSubmit={handleSubmit}>
                     <label>
                         Username

@@ -55,7 +55,7 @@ const Registration = () => {
     return (
         <div>
             <h1> Registration </h1>
-            <div class="input-box">
+            <div className="input-box">
                 <p>{state.status}</p>
                 <form onSubmit={handleSubmit}>
                     <label>
