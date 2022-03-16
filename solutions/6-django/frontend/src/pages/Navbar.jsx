@@ -1,10 +1,14 @@
 import React from 'react';
-import {  Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () =>{
-    console.log(localStorage.getItem('token'))
-    console.log(localStorage.getItem('token') !== null)
-    console.log(localStorage.getItem('token') != '')
+    let navigate = useNavigate();
+
+    const logOut = event => {
+        localStorage.clear();
+        navigate('/');
+    }
+
     if (localStorage.getItem('token') !== null) {
         return (
             <nav>
@@ -14,6 +18,9 @@ const Navbar = () =>{
                     </li>
                     <li>
                         <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
+                        <button type="submit" onClick={() => logOut()}>Logout</button>
                     </li>
                 </ul>
             </nav>
