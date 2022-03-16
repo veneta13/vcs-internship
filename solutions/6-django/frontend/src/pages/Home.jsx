@@ -13,18 +13,12 @@ const Home = () => {
         listURL: 'http://localhost:8000/api/lists/1/',
         currentLink: 'https://www.example.com',
         links: [],
-        isLoading: true // TODO too many re-renders
+        isLoading: true
     });
 
     if (params.state !== null) {
         setState({
-            listName: state.listName,
-            listDescription: state.listDescription,
-            isPublic: state.isPublic,
             listURL: params.state.linkURL,
-            currentLink: state.currentLink,
-            links: [],
-            isLoading: true
         });
     }
 
@@ -41,8 +35,6 @@ const Home = () => {
                         listName: res.data.name,
                         listDescription: res.data.description,
                         isPublic: res.data.public,
-                        listURL: state.listURL,
-                        currentLink: state.currentLink,
                         links: res.data.links,
                         isLoading: false
                     });
@@ -54,33 +46,18 @@ const Home = () => {
     const handleNameChange = event => {
         setState({
             listName: event.target.value,
-            listDescription: state.listDescription,
-            isPublic: state.isPublic,
-            listURL: state.listURL,
-            currentLink: state.currentLink,
-            links: state.links,
         });
     }
 
     const handleDescriptionChange = event => {
         setState({
-            listName: state.listName,
             listDescription: event.target.value,
-            isPublic: state.isPublic,
-            listURL: state.listURL,
-            currentLink: state.currentLink,
-            links: state.links,
         });
     }
 
     const handleCurrentLinkChange = event => {
         setState({
-            listName: state.listName,
-            listDescription: state.listDescription,
-            isPublic: state.isPublic,
-            listURL: state.listURL,
             currentLink: event.target.value,
-            links: state.links,
         });
     }
 
@@ -96,10 +73,6 @@ const Home = () => {
         }
 
         setState({
-            listName: state.listName,
-            listDescription: state.listDescription,
-            isPublic: state.isPublic,
-            listURL: state.listURL,
             currentLink: '',
             links: state.links.concat([linkToAdd]),
         });
@@ -115,12 +88,7 @@ const Home = () => {
         event.preventDefault();
 
         setState({
-            listName: state.listName,
-            listDescription: state.listDescription,
             isPublic: !state.isPublic,
-            listURL: state.listURL,
-            currentLink: state.currentLink,
-            links: state.links,
         });
     }
 
@@ -155,12 +123,7 @@ const Home = () => {
             }})
             .then(res => {
                 setState({
-                    listName: state.listName,
-                    listDescription: state.listDescription,
-                    isPublic: state.isPublic,
                     listURL: res.data.url,
-                    currentLink: state.currentLink,
-                    links: state.links,
                 })
 
                 state.links.forEach(currentLink => {
@@ -181,7 +144,7 @@ const Home = () => {
     const removeLink = event => {
         axios({
             method: 'delete',
-            url: state.listURL, //TODO how to address /api/lists/<pk_list>/<pk>/
+            url: state.listURL,
             headers: { 
                 'Authorization': 'Token ' + localStorage.getItem('token')
             }})
