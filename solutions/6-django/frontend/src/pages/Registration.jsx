@@ -6,7 +6,6 @@ const Registration = () => {
     let navigate = useNavigate();
     
     let [state, setState] = useState({
-        status: 'Enter username and password',
         username: '',
         password: '',
     });
@@ -14,7 +13,6 @@ const Registration = () => {
     const handleUsernameChange = event => {
         event.preventDefault();
         setState({
-            status: state.status,
             username: event.target.value,
             password: state.password
         });
@@ -23,7 +21,6 @@ const Registration = () => {
     const handlePasswordChange = event => {
         event.preventDefault();
         setState({
-            status: state.status,
             username: state.username,
             password: event.target.value,
         });
@@ -32,22 +29,16 @@ const Registration = () => {
     const handleSubmit = event => {
         event.preventDefault();
 
-        console.log(state)
-
         axios.post('http://localhost:8000/api/users/registration/', {
             username: state.username,
             password: state.password
         })
             .then(res => {
-                if (res.hasOwnProperty('username') && res.username === state.username) {
-                    setState({
-                        status: 'Successfully created a new user'
-                    });
+                if (res.status === 201) {
+                    alert('Successfully created new user')
                     navigate("/login");
                 } else {
-                    setState({
-                        status: 'Error: Could not create a new user'
-                    });
+                    alert('Error: Cound not create a new user!')
                 }
             });
     }
