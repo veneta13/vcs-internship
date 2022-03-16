@@ -10,23 +10,16 @@ const Home = () => {
         listName: 'Link List',
         listDescription: 'Add description here',
         isPublic: true,
-        listURL: 'http://localhost:8000/api/lists/1/',
+        listURL: '',
         currentLink: 'https://www.example.com',
         links: [],
-        isLoading: true
     });
 
-    if (params.state !== null) {
-        setState({
-            listURL: params.state.linkURL,
-        });
-    }
-
     useEffect(() => {
-        if (state.listURL !== '' && state.isLoading) {
+        if (params.state !== null) {
             axios({
                 method: 'get',
-                url: state.listURL,
+                url: params.state.linkURL,
                 headers: {
                     'Authorization': 'Token ' + localStorage.getItem('token')
                 }})
@@ -35,10 +28,10 @@ const Home = () => {
                         listName: res.data.name,
                         listDescription: res.data.description,
                         isPublic: res.data.public,
+                        listURL: '',
+                        currentLink: 'https://www.example.com',
                         links: res.data.links,
-                        isLoading: false
                     });
-                    console.log(res.data.links)
                 });
         }
     }, [])
@@ -46,18 +39,33 @@ const Home = () => {
     const handleNameChange = event => {
         setState({
             listName: event.target.value,
+            listDescription: state.listDescription,
+            isPublic: state.isPublic,
+            listURL: state.listURL,
+            currentLink: state.currentLink,
+            links: state.links,
         });
     }
 
     const handleDescriptionChange = event => {
         setState({
+            listName: state.listName,
             listDescription: event.target.value,
+            isPublic: state.isPublic,
+            listURL: state.listURL,
+            currentLink: state.currentLink,
+            links: state.links,
         });
     }
 
     const handleCurrentLinkChange = event => {
         setState({
+            listName: state.listName,
+            listDescription: state.listDescription,
+            isPublic: state.isPublic,
+            listURL: state.listURL,
             currentLink: event.target.value,
+            links: state.links,
         });
     }
 
@@ -73,6 +81,10 @@ const Home = () => {
         }
 
         setState({
+            listName: state.listName,
+            listDescription: state.listDescription,
+            isPublic: state.isPublic,
+            listURL: state.listURL,
             currentLink: '',
             links: state.links.concat([linkToAdd]),
         });
@@ -88,7 +100,12 @@ const Home = () => {
         event.preventDefault();
 
         setState({
+            listName: state.listName,
+            listDescription: state.listDescription,
             isPublic: !state.isPublic,
+            listURL: state.listURL,
+            currentLink: state.currentLink,
+            links: state.links,
         });
     }
 
@@ -123,7 +140,12 @@ const Home = () => {
             }})
             .then(res => {
                 setState({
+                    listName: state.listName,
+                    listDescription: state.listDescription,
+                    isPublic: state.isPublic,
                     listURL: res.data.url,
+                    currentLink: state.currentLink,
+                    links: state.links,
                 })
 
                 state.links.forEach(currentLink => {
