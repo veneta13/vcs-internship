@@ -56,7 +56,7 @@ def get_page_information(url):
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Link
-        fields = ['url', 'link', 'title', 'description', 'image']
+        fields = ['url', 'link', 'title', 'description', 'image', 'id']
 
     def create(self, validated_data):
         request_url = validated_data.get('link')
