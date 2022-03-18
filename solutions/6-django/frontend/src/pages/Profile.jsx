@@ -24,11 +24,9 @@ const Profile = () =>{
             });
     }, [])
 
-    console.log(state.links)
-
     const clickOnLink = link => {
         console.log(link);
-        navigate('/', {state:{linkURL: link}});
+        navigate('/', {state:{listURL: link}});
     }
 
     return (

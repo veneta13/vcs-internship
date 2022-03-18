@@ -19,7 +19,7 @@ const Home = () => {
         if (params.state !== null) {
             axios({
                 method: 'get',
-                url: params.state.linkURL,
+                url: params.state.listURL,
                 headers: {
                     'Authorization': 'Token ' + localStorage.getItem('token')
                 }})
@@ -28,7 +28,7 @@ const Home = () => {
                         listName: res.data.name,
                         listDescription: res.data.description,
                         isPublic: res.data.public,
-                        listURL: '',
+                        listURL: params.state.listURL,
                         currentLink: 'https://www.example.com',
                         links: res.data.links,
                     });
@@ -163,10 +163,12 @@ const Home = () => {
             });
     }
 
-    const removeLink = event => {
+    const removeLink = (event, link) => {
+        event.preventDefault();
+
         axios({
             method: 'delete',
-            url: state.listURL,
+            url: state.listURL + link.id + "/",
             headers: { 
                 'Authorization': 'Token ' + localStorage.getItem('token')
             }})
@@ -199,7 +201,7 @@ const Home = () => {
                                     <img src={link.image}/>
                                     <a href={link.link}> {link.title} </a>
                                     <p> {link.description} </p>
-                                    <button type="submit" onClick={() => removeLink}> Remove link </button>
+                                    <button type="submit" onClick={(event) => removeLink(event, link)}> Remove link </button>
                                 </div>
                             )}
                         )
