@@ -74,6 +74,46 @@ def test_create_empty_private_list(client):
 
 
 @pytest.mark.django_db
+def test_add_link_update_existing_list(client, list):
+    url = reverse('lists-detail', kwargs={'pk': 1})
+    response = client.put(
+        url,
+        {
+            'name': 'My updated list',
+            'description': 'My updated description',
+            'public': False,
+            'links': ['http://www.google.com', 'http://www.example.com'],
+        }
+    )
+    assert response.status_code == 200
+
+    url = reverse('lists-detail', kwargs={'pk': 1})
+    response = client.get(url)
+    assert response.status_code == 200
+    assert response.data.get('name') == 'My updated list'
+    assert response.data.get('description') == 'My updated description'
+    assert response.data.get('public') is False
+    assert response.data.get('links') == [
+        OrderedDict([
+            ('url', 'http://testserver/api/links/1/'),
+            ('link', 'http://www.google.com'),
+            ('title', ''),
+            ('description', ''),
+            ('image', ''),
+            ('id', 1)
+        ]),
+        OrderedDict([
+            ('url', 'http://testserver/api/links/2/'),
+            ('link', 'http://www.example.com'),
+            ('title', ''),
+            ('description', ''),
+            ('image', ''),
+            ('id', 2)
+        ]),
+    ]
+
+
+@pytest.mark.django_db
 def test_add_links_to_public_list(client):
     response = client.post(
         reverse('lists-list'),
@@ -110,7 +150,9 @@ def test_add_links_to_public_list(client):
                      ('description',
                      ''),
                      ('image',
-                     '')]),
+                     ''),
+                     ('id',
+                     1)]),
         OrderedDict([('url',
                       'http://testserver/api/links/2/'),
                      ('link',
@@ -120,7 +162,9 @@ def test_add_links_to_public_list(client):
                      ('description',
                      ''),
                      ('image',
-                     '')]),
+                     ''),
+                     ('id',
+                     2)]),
     ]
 
     assert add_link_response.data.get('links') == result
@@ -172,7 +216,9 @@ def test_add_links_to_private_list(client):
                      ('description',
                      ''),
                      ('image',
-                     '')]),
+                     ''),
+                     ('id',
+                     1)]),
         OrderedDict([('url',
                       'http://testserver/api/links/2/'),
                      ('link',
@@ -182,7 +228,9 @@ def test_add_links_to_private_list(client):
                      ('description',
                      ''),
                      ('image',
-                     '')]),
+                     ''),
+                     ('id',
+                     2)]),
     ]
 
     assert add_link_response.data.get('links') == result
@@ -216,13 +264,15 @@ def test_remove_link_from_list(client, list):
     assert response.status_code == 200
     assert response.data.get('name') == 'Test List'
     assert response.data.get('public') is True
-    assert response.data.get('links')[0] == {
-        'link': 'http://www.google.com',
-        'url': 'http://testserver/api/links/1/',
-        'title': '',
-        'description': '',
-        'image': ''
-    }
+    assert response.data.get('links')[0] == OrderedDict(
+        [
+            ('url', 'http://testserver/api/links/1/'),
+            ('link', 'http://www.google.com'),
+            ('title', ''), ('description', ''),
+            ('image', ''),
+            ('id', 1)
+        ]
+    )
 
     response = client.delete(
         reverse(

@@ -42,6 +42,43 @@ class LinkListViewSet(viewsets.ModelViewSet,
         return Response(dict(link_serializer.data))
 
 
+    def create_or_update_links(self, links):
+        new_links = []
+        for current_link in links:
+            link_instance, created = Link.objects.update_or_create(
+                link=current_link,
+                defaults={'link': current_link},
+            )
+            new_links.append(link_instance)
+        return new_links
+
+
+
+    def update(self, request, *args, **kwargs):
+        instance = LinkList.objects.get(id=kwargs.get('pk'))
+        all_links = dict(request.data).get('links')
+        instance.links.set(self.create_or_update_links(all_links))
+        fields = [
+            'name',
+            'public',
+            'description'
+        ]
+        for field in fields:
+            setattr(instance, field, request.data[field])
+
+        instance.save()
+        list_serializer = LinkListSerializer(
+            instance,
+            data=request.data,
+            partial=False,
+            context={'request': request}
+        )
+        list_serializer.is_valid(raise_exception=True)
+        self.perform_update(list_serializer)
+
+        return Response(dict(list_serializer.data))
+
+
 class RemoveLinkViewSet(APIView):
     def delete(self, request, *args, **kwargs):
         llist = LinkList.objects.get(id=kwargs.get('pk_list'))

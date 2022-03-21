@@ -3,6 +3,8 @@ import {useLocation} from "react-router-dom";
 import axios from 'axios';
 
 
+const BACKEND_URL = 'http://localhost:8000/api/lists/'
+
 const Home = () => {
     let params = useLocation();
 
@@ -75,7 +77,7 @@ const Home = () => {
         const linkToAdd = {
             description: "",
             image: "",
-            link: state.linkToAdd,
+            link: state.currentLink,
             title: "",
             url: ""
         }
@@ -88,12 +90,6 @@ const Home = () => {
             currentLink: '',
             links: state.links.concat([linkToAdd]),
         });
-    }
-
-    const handleShare = event => {
-        event.preventDefault();
-        alert('Link to this list copied to clipboard');
-        navigator.clipboard.writeText(state.listURL);
     }
 
     const handleCheckboxChange = event => {
@@ -124,43 +120,69 @@ const Home = () => {
     }
 
     const handleSave = event => {
-        event.preventDefault();
-
-        axios({
-            method: 'post',
-            url: state.listURL,
-            headers: { 
-                'Authorization': 'Token ' + localStorage.getItem('token')
-            },
-            data: {
-                links: [],
-                name: state.listName,
-                description: state.listDescription,
-                public: state.isPublic
-            }})
-            .then(res => {
-                setState({
-                    listName: state.listName,
-                    listDescription: state.listDescription,
-                    isPublic: state.isPublic,
-                    listURL: res.data.url,
-                    currentLink: state.currentLink,
-                    links: state.links,
-                })
-
-                state.links.forEach(currentLink => {
-                    axios({
-                        method: 'patch',
-                        url: res.data.url ,
-                        headers: { 
-                            'Authorization': 'Token ' + localStorage.getItem('token')
-                        },
-                        data: {
-                            link: currentLink.link,
-                        }
+        console.log(state)
+        
+        if (state.listURL === '') {
+            axios({
+                method: 'post',
+                url: BACKEND_URL, 
+                headers: { 
+                    'Authorization': 'Token ' + localStorage.getItem('token')
+                },
+                data: {
+                    links: [],
+                    name: state.listName,
+                    description: state.listDescription,
+                    public: state.isPublic
+                }})
+                .then(res => {
+                    setState({
+                        listName: state.listName,
+                        listDescription: state.listDescription,
+                        isPublic: state.isPublic,
+                        listURL: res.data.url,
+                        currentLink: state.currentLink,
+                        links: state.links,
+                    })
+    
+                    state.links.forEach(currentLink => {
+                        axios({
+                            method: 'patch',
+                            url: res.data.url ,
+                            headers: { 
+                                'Authorization': 'Token ' + localStorage.getItem('token')
+                            },
+                            data: {
+                                link: currentLink.link,
+                            }
+                        })
+                    });
+                });
+        }
+        else {
+            axios({
+                method: 'put',
+                url: state.listURL, 
+                headers: { 
+                    'Authorization': 'Token ' + localStorage.getItem('token')
+                },
+                data: {
+                    links: state.links.map(l => l.link),
+                    name: state.listName,
+                    description: state.listDescription,
+                    public: state.isPublic
+                }})
+                .then(res => {
+                    setState({
+                        listName: res.data.name,
+                        listDescription: state.listDescription,
+                        isPublic: state.isPublic,
+                        listURL: state.listURL,
+                        currentLink: state.currentLink,
+                        links: res.data.links,
                     })
                 });
-            });
+        }
     }
 
     const removeLink = (event, link) => {
@@ -172,9 +194,6 @@ const Home = () => {
             headers: { 
                 'Authorization': 'Token ' + localStorage.getItem('token')
             }})
-            .then(res => {
-                console.log(res);
-            });
     }
 
     return (
@@ -185,34 +204,42 @@ const Home = () => {
                 <input type="text" value={state.listDescription} onChange={handleDescriptionChange} />
             </div>
 
-            <form>
-                <input type="text" value={state.currentLink} onChange={handleCurrentLinkChange} />
-                <br/>
+            <input type="text" value={state.currentLink} onChange={handleCurrentLinkChange} />
+            <br/>
 
-                <input id="publicCheckbox" type="checkbox" defaultChecked={state.isPublic} onChange={handleCheckboxChange} />
-                <label htmlFor="publicCheckbox">Is Public?</label>
-                <br/>
+            <input id="publicCheckbox" type="checkbox" defaultChecked={state.isPublic} onChange={handleCheckboxChange} />
+            <label htmlFor="publicCheckbox">Is Public?</label>
+            <br/>
 
-                <div>
-                    {
-                        state.links.map(link => {
-                            return (
-                                <div className="link-preview-box">
-                                    <img src={link.image}/>
-                                    <a href={link.link}> {link.title} </a>
-                                    <p> {link.description} </p>
-                                    <button type="submit" onClick={(event) => removeLink(event, link)}> Remove link </button>
-                                </div>
-                            )}
-                        )
-                    }
-                </div>
+            <div>
+                {
+                    state.links.map(link => {
+                        return (
+                            <div className="link-preview-box">
+                                <img src={link.image}/>
+                                <br/>
 
-                <button type="submit" onClick={() => handleAdd}> Add Link To List </button>
-                <button type="submit" onClick={() => handleShare}> Share List Link </button>
-                <button type="submit" onClick={() => handleDelete}> Delete List </button>
-                <button type="submit" onClick={() => handleSave}> Save List </button>
-            </form>
+                                <h2> {link.title} </h2> 
+
+                                <a href={link.link}> 
+                                    {link.link}
+                                </a>
+
+                                <p> {link.description} </p>
+                                
+                                <button type="submit" onClick={(event) => removeLink(event, link)}> Remove link </button>
+                            </div>
+                        )}
+                    )
+                }
+            </div>
+
+            <div>
+                <button type="submit" onClick={handleAdd}> Add Link To List </button>
+                <button type="submit" onClick={() => {navigator.clipboard.writeText(state.listURL)}}> Share List </button>
+                <button type="submit" onClick={handleDelete}> Delete List </button>
+                <button type="submit" onClick={handleSave}> Save List </button>
+            </div>
         </div>
     );
 }
