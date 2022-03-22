@@ -114,14 +114,9 @@ const Home = () => {
             headers: { 
                 'Authorization': 'Token ' + localStorage.getItem('token')
             }})
-            .then(res => {
-                console.log(res);
-            });
     }
 
-    const handleSave = event => {
-        console.log(state)
-        
+    const handleSave = event => {        
         if (state.listURL === '') {
             axios({
                 method: 'post',
@@ -207,8 +202,11 @@ const Home = () => {
             <input type="text" value={state.currentLink} onChange={handleCurrentLinkChange} />
             <br/>
 
+            <div class="public-cb">
             <input id="publicCheckbox" type="checkbox" defaultChecked={state.isPublic} onChange={handleCheckboxChange} />
-            <label htmlFor="publicCheckbox">Is Public?</label>
+            <label htmlFor="publicCheckbox">Public</label>
+            </div>
+
             <br/>
 
             <div>

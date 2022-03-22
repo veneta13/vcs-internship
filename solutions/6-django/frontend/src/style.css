@@ -1,13 +1,13 @@
 html {
   margin: 0;
-  background-color: #4a566c;
+  background-color: #333;
   font: 18px Helvetica, sans-serif;
   display: flex;
 }
 
 h1 {
   font-size: 25px;
-  color: #95b8c8;
+  color: #C9DCB3;
   top: 15%;
   left: 30%;
   position: absolute;
@@ -17,8 +17,8 @@ button {
   margin: 2px 15px;
   border-radius: 4px;
   border: none;
-  color: #95b8c8;
-  background-color: #EDEDED;
+  color: #C9DCB3;
+  background-color: #7B7263;
   font: 18px Helvetica, sans-serif;
 }
 
@@ -26,7 +26,7 @@ nav {
   top: 0;
   left: 0;
   right: 0;
-  background-color: #95b8c8;
+  background-color: #C9DCB3;
   font: 18px Helvetica, sans-serif;
   position: fixed;
   z-index: 100;
@@ -37,19 +37,19 @@ nav ul {
 }
 nav a {
   margin: 2px 15px;
-  color: #EDEDED;
+  color: #7B7263;
   text-decoration: none;
 }
 nav button {
   margin: 0px 15px;
-  color: #EDEDED;
-  background-color: #95b8c8;
+  color: #7B7263;
+  background-color: #C9DCB3;
 }
 
 .input-box {
-  border: 2px double #95b8c8;
+  border: 2px double #C9DCB3;
   border-radius: 4px;
-  background-color: #EDEDED;
+  background-color: #7B7263;
   box-sizing: content-box;
   width: 40%;
   height: 40%;
@@ -62,43 +62,43 @@ nav button {
   top: 3%;
   left: 30%;
   font-size: 18px;
-  color: #95b8c8;
+  color: #C9DCB3;
   position: absolute;
 }
 .input-box label {
-  color: #95b8c8;
+  color: #C9DCB3;
   font-weight: bold;
 }
 .input-box button {
   padding: 1%;
   border-radius: 4px;
-  color: #EDEDED;
+  color: #7B7263;
   width: 30%;
   top: 70%;
   left: 35%;
   margin: 0;
-  border: 1px solid #95b8c8;
-  background-color: #95b8c8;
+  border: 1px solid #C9DCB3;
+  background-color: #C9DCB3;
   position: absolute;
 }
 .input-box input {
   padding: 1%;
   border-radius: 4px;
-  color: #EDEDED;
+  color: #7B7263;
   width: 40%;
   left: 35%;
   margin-top: 8%;
   margin-left: 5%;
-  border: 1px solid #95b8c8;
-  background-color: #95b8c8;
-  color: #EDEDED;
+  border: 1px solid #C9DCB3;
+  background-color: #C9DCB3;
+  color: #7B7263;
   display: inline-block;
 }
 
 .home {
-  border: 2px double #95b8c8;
+  border: 2px double #C9DCB3;
   border-radius: 4px;
-  background-color: #EDEDED;
+  background-color: #7B7263;
   width: 50%;
   top: 25%;
   left: 25%;
@@ -107,7 +107,7 @@ nav button {
   display: block;
 }
 .home h2 {
-  color: #EDEDED;
+  color: #7B7263;
   font-size: 27px;
 }
 .home input {
@@ -115,9 +115,9 @@ nav button {
   left: 15%;
   padding: 10px 5px;
   font-size: 18px;
-  color: #95b8c8;
+  color: #C9DCB3;
   border: none;
-  border-bottom: 1px solid #4a566c;
+  border-bottom: 1px solid #333;
   background: none;
   display: block;
   position: relative;
@@ -125,49 +125,58 @@ nav button {
 .home img {
   height: 20%;
 }
+.home input[type=checkbox] {
+  width: 40px;
+}
+.home label {
+  color: #C9DCB3;
+}
 .home .list-info {
   width: 100%;
   margin: 30px 0;
   margin-bottom: 60px;
   position: relative;
 }
+.home .public-cb {
+  display: inline-flex;
+}
 .home .link-preview-box {
-  border: 2px double #95b8c8;
+  border: 2px double #C9DCB3;
   border-radius: 4px;
-  background-color: #EDEDED;
+  background-color: #7B7263;
   width: 80%;
   top: 10%;
   left: 10%;
   margin: 5% 0px;
   padding: 3% 0px;
-  background-color: #95b8c8;
+  background-color: #C9DCB3;
   position: relative;
 }
 
 .profile h1 {
   font-size: 25px;
-  color: #95b8c8;
+  color: #C9DCB3;
   top: 10%;
-  left: 43%;
+  left: 44%;
   font-size: 40px;
   position: absolute;
 }
 .profile h2 {
   font-size: 28px;
-  color: #95b8c8;
+  color: #C9DCB3;
   text-decoration: none;
 }
 .profile p {
-  color: #4a566c;
+  color: #333;
 }
 .profile .lists {
-  border: 2px double #95b8c8;
+  border: 2px double #C9DCB3;
   border-radius: 4px;
-  background-color: #EDEDED;
+  background-color: #7B7263;
   width: 50%;
   top: 30%;
   left: 25%;
-  background-color: #EDEDED;
+  background-color: #7B7263;
   position: absolute;
 }
 .profile .list {

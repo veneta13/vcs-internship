@@ -1,7 +1,7 @@
 $font-stack: Helvetica, sans-serif;
-$primary-color: #95b8c8;
-$secondary-color: #4a566c;
-$tertiary-color: #EDEDED;
+$primary-color: #C9DCB3;
+$secondary-color: #333;
+$tertiary-color: #7B7263;
 $radius: 4px;
 $text-size: 18px;
 
@@ -150,11 +150,23 @@ nav {
     height: 20%;
   }
 
+  input[type="checkbox"] {
+    width: 40px;
+  }
+
+  label {
+    color: $primary-color;
+  }
+
   .list-info {
     width: 100%;
     margin: 30px 0;
     margin-bottom: 60px;
     position: relative;
+  }
+
+  .public-cb {
+    display: inline-flex;
   }
   
   .link-preview-box {
@@ -173,7 +185,7 @@ nav {
   h1 {
     @include title;
     top: 10%;
-    left: 43%;
+    left: 44%;
     font-size: 40px;
     position: absolute;
   }

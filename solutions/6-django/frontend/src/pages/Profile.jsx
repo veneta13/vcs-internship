@@ -20,12 +20,10 @@ const Profile = () =>{
                 setState({
                     links: res.data.results
                 })
-                console.log(state.links)
             });
     }, [])
 
     const clickOnLink = link => {
-        console.log(link);
         navigate('/', {state:{listURL: link}});
     }
 
