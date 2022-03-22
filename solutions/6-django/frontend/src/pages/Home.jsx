@@ -202,7 +202,7 @@ const Home = () => {
             <input type="text" value={state.currentLink} onChange={handleCurrentLinkChange} />
             <br/>
 
-            <div class="public-cb">
+            <div className="public-cb">
             <input id="publicCheckbox" type="checkbox" defaultChecked={state.isPublic} onChange={handleCheckboxChange} />
             <label htmlFor="publicCheckbox">Public</label>
             </div>

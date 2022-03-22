@@ -180,7 +180,6 @@ def test_add_links_to_public_list(client):
         'link') == 'https://www.example.com'
 
 
-
 @pytest.mark.django_db
 def test_add_links_to_private_list(client):
     response = client.post(

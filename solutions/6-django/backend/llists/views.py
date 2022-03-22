@@ -1,6 +1,5 @@
 from rest_framework import viewsets, generics, status
 from rest_framework.response import Response
-from django.http import HttpRequest
 from rest_framework.views import APIView
 
 from llists.filters import IsOwnerOrPublicFilter
@@ -41,7 +40,6 @@ class LinkListViewSet(viewsets.ModelViewSet,
 
         return Response(dict(link_serializer.data))
 
-
     def create_or_update_links(self, links):
         new_links = []
         for current_link in links:
@@ -51,8 +49,6 @@ class LinkListViewSet(viewsets.ModelViewSet,
             )
             new_links.append(link_instance)
         return new_links
-
-
 
     def update(self, request, *args, **kwargs):
         instance = LinkList.objects.get(id=kwargs.get('pk'))
