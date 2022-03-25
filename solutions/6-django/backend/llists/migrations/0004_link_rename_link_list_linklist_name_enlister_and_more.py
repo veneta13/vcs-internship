@@ -14,7 +14,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Link',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
                 ('link', models.URLField()),
             ],
         ),
@@ -26,14 +30,24 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Enlister',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('link', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='llists.link')),
-                ('link_list', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='llists.linklist')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('link', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='llists.link')),
+                ('link_list', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='llists.linklist')),
             ],
         ),
         migrations.AddField(
             model_name='linklist',
             name='links',
-            field=models.ManyToManyField(through='llists.Enlister', to='llists.Link'),
+            field=models.ManyToManyField(
+                through='llists.Enlister',
+                to='llists.Link'),
         ),
     ]

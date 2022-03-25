@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -7,6 +7,7 @@ const BACKEND_URL = 'http://localhost:8000/api/lists/'
 
 const Home = () => {
     let params = useLocation();
+    let navigate = useNavigate();
 
     let [state, setState] = useState({
         listName: 'Link List',
@@ -75,11 +76,11 @@ const Home = () => {
         event.preventDefault();
 
         const linkToAdd = {
-            description: "",
-            image: "",
+            description: '',
+            image: '',
             link: state.currentLink,
-            title: "",
-            url: ""
+            title: '',
+            url: ''
         }
 
         setState({
@@ -114,6 +115,9 @@ const Home = () => {
             headers: { 
                 'Authorization': 'Token ' + localStorage.getItem('token')
             }})
+            .then(res => {
+                navigate('/');
+            }); 
     }
 
     const handleSave = event => {        
@@ -185,26 +189,26 @@ const Home = () => {
 
         axios({
             method: 'delete',
-            url: state.listURL + link.id + "/",
+            url: state.listURL + link.id + '/',
             headers: { 
                 'Authorization': 'Token ' + localStorage.getItem('token')
             }})
     }
 
     return (
-        <div className="home">
-            <div className="list-info">
-                <input type="text" value={state.listName} onChange={handleNameChange} />
+        <div className='home'>
+            <div className='list-info'>
+                <input type='text' value={state.listName} onChange={handleNameChange} />
                 <br/>
-                <input type="text" value={state.listDescription} onChange={handleDescriptionChange} />
+                <input type='text' value={state.listDescription} onChange={handleDescriptionChange} />
             </div>
 
-            <input type="text" value={state.currentLink} onChange={handleCurrentLinkChange} />
+            <input type='text' value={state.currentLink} onChange={handleCurrentLinkChange} />
             <br/>
 
-            <div className="public-cb">
-            <input id="publicCheckbox" type="checkbox" defaultChecked={state.isPublic} onChange={handleCheckboxChange} />
-            <label htmlFor="publicCheckbox">Public</label>
+            <div className='public-cb'>
+            <input id='publicCheckbox' type='checkbox' defaultChecked={state.isPublic} onChange={handleCheckboxChange} />
+            <label htmlFor='publicCheckbox'>Public</label>
             </div>
 
             <br/>
@@ -213,7 +217,7 @@ const Home = () => {
                 {
                     state.links.map(link => {
                         return (
-                            <div className="link-preview-box">
+                            <div className='link-preview-box'>
                                 <img src={link.image}/>
                                 <br/>
 
@@ -225,7 +229,7 @@ const Home = () => {
 
                                 <p> {link.description} </p>
                                 
-                                <button type="submit" onClick={(event) => removeLink(event, link)}> Remove link </button>
+                                <button type='submit' onClick={(event) => removeLink(event, link)}> Remove link </button>
                             </div>
                         )}
                     )
@@ -233,10 +237,10 @@ const Home = () => {
             </div>
 
             <div>
-                <button type="submit" onClick={handleAdd}> Add Link To List </button>
-                <button type="submit" onClick={() => {navigator.clipboard.writeText(state.listURL)}}> Share List </button>
-                <button type="submit" onClick={handleDelete}> Delete List </button>
-                <button type="submit" onClick={handleSave}> Save List </button>
+                <button type='submit' onClick={handleAdd}> Add Link To List </button>
+                <button type='submit' onClick={() => {navigator.clipboard.writeText(state.listURL)}}> Share List </button>
+                <button type='submit' onClick={handleDelete}> Delete List </button>
+                <button type='submit' onClick={handleSave}> Save List </button>
             </div>
         </div>
     );

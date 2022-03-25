@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+
+const BACKEND_URL = 'http://localhost:8000/api/users/registration/'
 
 const Registration = () => {
     let navigate = useNavigate();
@@ -29,14 +32,14 @@ const Registration = () => {
     const handleSubmit = event => {
         event.preventDefault();
 
-        axios.post('http://localhost:8000/api/users/registration/', {
+        axios.post(BACKEND_URL, {
             username: state.username,
             password: state.password
         })
             .then(res => {
                 if (res.status === 201) {
                     alert('Successfully created new user')
-                    navigate("/login");
+                    navigate('/login');
                 } else {
                     alert('Error: Cound not create a new user!')
                 }
@@ -46,14 +49,14 @@ const Registration = () => {
     return (
         <div>
             <h1> Registration </h1>
-            <div className="input-box">
+            <div className='input-box'>
                 <p>{state.status}</p>
                 <form onSubmit={handleSubmit}>
                     <label>
                         Username
                         <input
-                            name="username"
-                            type="text"
+                            name='username'
+                            type='text'
                             value={state.username}
                             onChange={handleUsernameChange}
                         />
@@ -62,14 +65,14 @@ const Registration = () => {
                     <label>
                         Password
                         <input
-                            name="password"
-                            type="password"
+                            name='password'
+                            type='password'
                             value={state.password}
                             onChange={handlePasswordChange}
                         />
                     </label>
                     <br/>
-                    <button type="submit">Register</button>
+                    <button type='submit'>Register</button>
                 </form>
             </div>
         </div>

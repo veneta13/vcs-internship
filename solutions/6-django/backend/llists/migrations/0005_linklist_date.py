@@ -7,14 +7,19 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('llists', '0004_link_rename_link_list_linklist_name_enlister_and_more'),
+        (
+            'llists',
+            '0004_link_rename_link_list_linklist_name_enlister_and_more'
+        ),
     ]
 
     operations = [
         migrations.AddField(
             model_name='linklist',
             name='date',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Date created'),
+            field=models.DateTimeField(
+                default=django.utils.timezone.now,
+                verbose_name='Date created'),
             preserve_default=False,
         ),
     ]

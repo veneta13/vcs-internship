@@ -13,7 +13,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='link',
             name='description',
-            field=models.TextField(default='This is a descripton.', max_length=1000),
+            field=models.TextField(
+                default='This is a descripton.',
+                max_length=1000),
             preserve_default=False,
         ),
         migrations.AddField(

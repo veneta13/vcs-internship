@@ -26,6 +26,7 @@ html {
   margin: 0;
   background-color: $secondary-color;
   font: $text-size $font-stack;
+  text-align: center;
   display: flex;
 }
 
@@ -150,7 +151,7 @@ nav {
     height: 20%;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     width: 40px;
   }
 

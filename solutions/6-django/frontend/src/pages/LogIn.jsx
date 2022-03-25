@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+
+const BACKEND_URL = 'http://localhost:8000/api/auth/'
 
 const LogIn = () =>{
     let navigate = useNavigate();
@@ -27,14 +30,14 @@ const LogIn = () =>{
 
     const handleSubmit = event => {
         event.preventDefault();
-        axios.post('http://localhost:8000/api/auth/', {
+        axios.post(BACKEND_URL, {
             username: state.username,
             password: state.password
         })
         .then(res => {
             if (res.status === 200) {
                 localStorage.setItem('token', res.data.token);
-                navigate("/");
+                navigate('/');
             } else {
                 alert('Unable to log in.');
             }
@@ -44,13 +47,13 @@ const LogIn = () =>{
     return (
         <div>
             <h1> Log In </h1>
-            <div className="input-box">
+            <div className='input-box'>
                 <form onSubmit={handleSubmit}>
                     <label>
                         Username
                         <input
-                            name="username"
-                            type="text"
+                            name='username'
+                            type='text'
                             value={state.username}
                             onChange={handleUsernameChange}
                         />
@@ -59,14 +62,14 @@ const LogIn = () =>{
                     <label>
                         Password
                         <input
-                            name="password"
-                            type="password"
+                            name='password'
+                            type='password'
                             value={state.password}
                             onChange={handlePasswordChange}
                         />
                     </label>
                     <br/>
-                    <button type="submit">Log In</button>
+                    <button type='submit'>Log In</button>
                 </form>
             </div>
         </div>

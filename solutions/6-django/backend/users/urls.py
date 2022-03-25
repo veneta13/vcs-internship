@@ -4,11 +4,11 @@ from users import views as user_views
 
 router = routers.DefaultRouter()
 router.register(
-        r'registration',
-        user_views.RegistrationViewSet,
-        basename='register'
-    )
+    r"registration",
+    user_views.RegistrationViewSet,
+    basename="register"
+)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]

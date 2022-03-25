@@ -52,20 +52,20 @@ def link2():
 @pytest.fixture
 def empty_list(user):
     return LinkList.objects.create(
-      owner=user,
-      name='Test List',
-      description='Test Description',
-      public=True
+        owner=user,
+        name='Test List',
+        description='Test Description',
+        public=True
     )
 
 
 @pytest.fixture
 def list(user, link):
     llist = LinkList.objects.create(
-      owner=user,
-      name='Test List',
-      description='Test Description',
-      public=True
+        owner=user,
+        name='Test List',
+        description='Test Description',
+        public=True
     )
     llist.links.set([link])
     return llist

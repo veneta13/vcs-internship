@@ -3,7 +3,7 @@ import {
   BrowserRouter,
   Routes,
   Route
-} from "react-router-dom";
+} from 'react-router-dom';
 
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
@@ -19,10 +19,10 @@ const Main = () => {
         <BrowserRouter>
             <Navbar />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="register/" element={<Registration />} />
-                <Route path="login/" element={<LogIn />} />
-                <Route path="profile/" element={<Profile />} />
+                <Route path='/' element={<Home />} />
+                <Route path='register/' element={<Registration />} />
+                <Route path='login/' element={<LogIn />} />
+                <Route path='profile/' element={<Profile />} />
             </Routes>
         </BrowserRouter>
     );

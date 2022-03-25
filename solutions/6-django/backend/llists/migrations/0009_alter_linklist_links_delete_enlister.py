@@ -17,6 +17,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='linklist',
             name='links',
-            field=models.ManyToManyField(related_name='linklists', to='llists.Link'),
+            field=models.ManyToManyField(
+                related_name='linklists',
+                to='llists.Link'),
         ),
     ]

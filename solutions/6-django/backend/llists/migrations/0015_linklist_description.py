@@ -13,7 +13,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='linklist',
             name='description',
-            field=models.CharField(default='This is a list description.', max_length=250),
+            field=models.CharField(
+                default='This is a list description.',
+                max_length=250),
             preserve_default=False,
         ),
     ]

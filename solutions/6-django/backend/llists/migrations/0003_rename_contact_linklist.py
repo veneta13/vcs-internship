@@ -7,7 +7,10 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0012_alter_user_first_name_max_length'),
-        ('llists', '0002_rename_name_contact_link_list_remove_contact_email_and_more'),
+        (
+            'llists',
+            '0002_rename_name_contact_link_list_remove_contact_email_and_more'
+        ),
     ]
 
     operations = [
