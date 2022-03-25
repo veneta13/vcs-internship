@@ -23,8 +23,7 @@ def get_title(html):
 def get_description(html):
     description = ""
     if html.find("meta", property="description"):
-        description = html.find(
-            "meta", property="description").get('content')
+        description = html.find("meta", property="description").get('content')
     elif html.find("p"):
         description = html.find("p").contents
     return description
@@ -33,11 +32,9 @@ def get_description(html):
 def get_image(html):
     image = ""
     if html.find("meta", property="image"):
-        image = html.find(
-            "meta", property="image").get('content')
+        image = html.find("meta", property="image").get('content')
     elif html.find("img", src=True):
-        image = html.find(
-            "img").get('src')
+        image = html.find("img").get('src')
     return image
 
 

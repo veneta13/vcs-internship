@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { AxiosInstance } from '../axiosClient';
 
 
 const BACKEND_URL = 'http://localhost:8000/api/lists/'
@@ -27,7 +26,6 @@ const Home = () => {
                 headers: {
                     'Authorization': 'Token ' + localStorage.getItem('token')
                 }})
-                // AxiosInstance.get(params.state.listURL)
                 .then(res => {
                     setState({
                         listName: res.data.name,
