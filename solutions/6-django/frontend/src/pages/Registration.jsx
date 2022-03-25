@@ -16,15 +16,15 @@ const Registration = () => {
     const handleUsernameChange = event => {
         event.preventDefault();
         setState({
-            username: event.target.value,
-            password: state.password
+            ...state,
+            username: event.target.value
         });
     }
 
     const handlePasswordChange = event => {
         event.preventDefault();
         setState({
-            username: state.username,
+            ...state,
             password: event.target.value,
         });
     }
@@ -50,7 +50,6 @@ const Registration = () => {
         <div>
             <h1> Registration </h1>
             <div className='input-box'>
-                <p>{state.status}</p>
                 <form onSubmit={handleSubmit}>
                     <label>
                         Username

@@ -15,15 +15,15 @@ const LogIn = () =>{
     const handleUsernameChange = event => {
         event.preventDefault();
         setState({
+            ...state,
             username: event.target.value,
-            password: state.password
         });
     }
 
     const handlePasswordChange = event => {
         event.preventDefault();
         setState({
-            username: state.username,
+            ...state,
             password: event.target.value,
         });
     }
