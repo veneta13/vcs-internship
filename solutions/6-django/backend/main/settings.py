@@ -20,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-tusk9_b_4j#uw#xc(wxx%u66t8tsr$5dmmuqr%u77_erux-$c-"
+SECRET_KEY = "django-insecure-tusk9_b_4j#uw#xc"
+"(wxx%u66t8tsr$5dmmuqr%u77_erux-$c-"
 
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = True
@@ -108,7 +109,8 @@ REST_FRAMEWORK = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME":
-            "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+            "django.contrib.auth.password_validation"
+            ".UserAttributeSimilarityValidator",
     },
     {
         "NAME":

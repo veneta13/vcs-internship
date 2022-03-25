@@ -3,7 +3,7 @@ import functools
 
 
 def sq(n):
-    return n*n
+    return n * n
 
 
 def sq_sum(a, b):
