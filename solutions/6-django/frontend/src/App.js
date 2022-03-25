@@ -1,11 +1,13 @@
-import React from 'react';
-import Main from'./Main'
+/* eslint-disable no-unused-vars, semi, indent */
 
-function App() {    
+import React from 'react';
+import Main from './Main';
+
+function App () {
     return (
-      <div className='App'>
-        <Main />
-      </div>
+        <div className='App'>
+            <Main />
+        </div>
     );
 }
 
