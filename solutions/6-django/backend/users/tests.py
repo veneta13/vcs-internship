@@ -1,6 +1,6 @@
 import pytest
 from django.urls import reverse
-from conftest import anon_client
+from conftest import anon_client, user
 
 
 @pytest.mark.django_db
@@ -21,11 +21,7 @@ def test_registration(anon_client):
 
 
 @pytest.mark.django_db
-def test_login(anon_client):
-    data = {"username": "testuser", "password": "test1234"}
-    response = anon_client.post(reverse("register-list"), data)
-    assert response.status_code == 201
-    assert response.data == {"username": "testuser"}
-
+def test_login(anon_client, user):
+    data = {"username": "tester", "password": "123456"}
     response = anon_client.post(reverse("auth"), data)
     assert response.status_code == 200

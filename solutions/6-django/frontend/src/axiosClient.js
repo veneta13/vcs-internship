@@ -2,8 +2,8 @@
 
 import axios from 'axios';
 
-export default axios.create({
-    baseURL: 'http://localhost:8000/api/',
+export const AxiosInstance = axios.create({
+    baseURL: '',
     headers: {
       'Access-Control-Allow-Origin': '*',
       Authorization: 'Token ' + localStorage.getItem('token')

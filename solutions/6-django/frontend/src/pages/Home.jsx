@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import { AxiosInstance } from '../axiosClient';
 
 
 const BACKEND_URL = 'http://localhost:8000/api/lists/'
@@ -26,6 +27,7 @@ const Home = () => {
                 headers: {
                     'Authorization': 'Token ' + localStorage.getItem('token')
                 }})
+                // AxiosInstance.get(params.state.listURL)
                 .then(res => {
                     setState({
                         listName: res.data.name,
@@ -41,34 +43,22 @@ const Home = () => {
 
     const handleNameChange = event => {
         setState({
+            ...state,
             listName: event.target.value,
-            listDescription: state.listDescription,
-            isPublic: state.isPublic,
-            listURL: state.listURL,
-            currentLink: state.currentLink,
-            links: state.links,
         });
     }
 
     const handleDescriptionChange = event => {
         setState({
-            listName: state.listName,
+            ...state,
             listDescription: event.target.value,
-            isPublic: state.isPublic,
-            listURL: state.listURL,
-            currentLink: state.currentLink,
-            links: state.links,
         });
     }
 
     const handleCurrentLinkChange = event => {
         setState({
-            listName: state.listName,
-            listDescription: state.listDescription,
-            isPublic: state.isPublic,
-            listURL: state.listURL,
+            ...state,
             currentLink: event.target.value,
-            links: state.links,
         });
     }
 
@@ -84,10 +74,7 @@ const Home = () => {
         }
 
         setState({
-            listName: state.listName,
-            listDescription: state.listDescription,
-            isPublic: state.isPublic,
-            listURL: state.listURL,
+            ...state,
             currentLink: '',
             links: state.links.concat([linkToAdd]),
         });
@@ -97,18 +84,12 @@ const Home = () => {
         event.preventDefault();
 
         setState({
-            listName: state.listName,
-            listDescription: state.listDescription,
+            ...state,
             isPublic: !state.isPublic,
-            listURL: state.listURL,
-            currentLink: state.currentLink,
-            links: state.links,
         });
     }
 
     const handleDelete = event => {
-        event.preventDefault();
-
         axios({
             method: 'delete',
             url: state.listURL,
@@ -116,7 +97,7 @@ const Home = () => {
                 'Authorization': 'Token ' + localStorage.getItem('token')
             }})
             .then(res => {
-                navigate('/');
+                navigate('/profile');
             }); 
     }
 
@@ -136,12 +117,8 @@ const Home = () => {
                 }})
                 .then(res => {
                     setState({
-                        listName: state.listName,
-                        listDescription: state.listDescription,
-                        isPublic: state.isPublic,
+                        ...state,
                         listURL: res.data.url,
-                        currentLink: state.currentLink,
-                        links: state.links,
                     })
     
                     state.links.forEach(currentLink => {
@@ -173,11 +150,8 @@ const Home = () => {
                 }})
                 .then(res => {
                     setState({
+                        ...state,
                         listName: res.data.name,
-                        listDescription: state.listDescription,
-                        isPublic: state.isPublic,
-                        listURL: state.listURL,
-                        currentLink: state.currentLink,
                         links: res.data.links,
                     })
                 });
@@ -185,14 +159,15 @@ const Home = () => {
     }
 
     const removeLink = (event, link) => {
-        event.preventDefault();
-
         axios({
             method: 'delete',
             url: state.listURL + link.id + '/',
             headers: { 
                 'Authorization': 'Token ' + localStorage.getItem('token')
             }})
+            .then(res => {
+                window.location.reload(false);
+            }); 
     }
 
     return (
