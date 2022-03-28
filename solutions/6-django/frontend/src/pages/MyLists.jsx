@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const BACKEND_URL = 'http://localhost:8000/api/lists/'
 
-const Profile = () =>{
+const MyLists = () =>{
     let navigate = useNavigate();
 
     let [state, setState] = useState({
@@ -31,7 +31,7 @@ const Profile = () =>{
     }
 
     return (
-        <div className='profile'>
+        <div className='my-lists'>
             <h1> My Lists </h1>
             <div className='lists'>
                 {
@@ -49,4 +49,4 @@ const Profile = () =>{
     );
 }
 
-export default Profile;
+export default MyLists;

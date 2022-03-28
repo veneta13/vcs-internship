@@ -60,11 +60,9 @@ nav button {
   position: absolute;
 }
 .input-box p {
-  top: 3%;
-  left: 30%;
   font-size: 18px;
   color: #C9DCB3;
-  position: absolute;
+  position: relative;
 }
 .input-box label {
   color: #C9DCB3;
@@ -132,6 +130,13 @@ nav button {
 .home label {
   color: #C9DCB3;
 }
+.home button {
+  color: #333;
+  background-color: #C9DCB3;
+}
+.home ::placeholder {
+  color: #C9DCB3;
+}
 .home .list-info {
   width: 100%;
   margin: 30px 0;
@@ -154,23 +159,21 @@ nav button {
   position: relative;
 }
 
-.profile h1 {
+.my-lists h1 {
   font-size: 25px;
   color: #C9DCB3;
-  top: 10%;
-  left: 44%;
   font-size: 40px;
-  position: absolute;
+  text-align: center;
 }
-.profile h2 {
+.my-lists h2 {
   font-size: 28px;
   color: #C9DCB3;
   text-decoration: none;
 }
-.profile p {
+.my-lists p {
   color: #333;
 }
-.profile .lists {
+.my-lists .lists {
   border: 2px double #C9DCB3;
   border-radius: 4px;
   background-color: #7B7263;
@@ -180,7 +183,7 @@ nav button {
   background-color: #7B7263;
   position: absolute;
 }
-.profile .list {
+.my-lists .list {
   margin: 50px auto;
 }
 

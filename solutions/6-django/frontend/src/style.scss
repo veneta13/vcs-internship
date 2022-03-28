@@ -84,11 +84,9 @@ nav {
   position: absolute;
 
   p {
-    top: 3%;
-    left: 30%;
     font-size: $text-size;
     color: $primary-color;
-    position: absolute;
+    position: relative;
   }
   
   label {
@@ -159,6 +157,15 @@ nav {
     color: $primary-color;
   }
 
+  button {
+    color: $secondary-color;
+    background-color: $primary-color;
+  }
+
+  ::placeholder {
+    color: $primary-color;
+  }
+
   .list-info {
     width: 100%;
     margin: 30px 0;
@@ -182,13 +189,11 @@ nav {
   }
 }
 
-.profile {
+.my-lists {
   h1 {
     @include title;
-    top: 10%;
-    left: 44%;
     font-size: 40px;
-    position: absolute;
+    text-align: center;
   }
 
   h2 {

@@ -10,11 +10,11 @@ const Home = () => {
     let navigate = useNavigate();
 
     let [state, setState] = useState({
-        listName: 'Link List',
-        listDescription: 'Add description here',
+        listName: '',
+        listDescription: '',
         isPublic: true,
         listURL: '',
-        currentLink: 'https://www.example.com',
+        currentLink: '',
         links: [],
     });
 
@@ -32,7 +32,7 @@ const Home = () => {
                         listDescription: res.data.description,
                         isPublic: res.data.public,
                         listURL: params.state.listURL,
-                        currentLink: 'https://www.example.com',
+                        currentLink: '',
                         links: res.data.links,
                     });
                 });
@@ -60,8 +60,15 @@ const Home = () => {
         });
     }
 
-    const handleAdd = event => {
+    const addLink = event => {
         event.preventDefault();
+
+        try {
+            let url = new URL(state.currentLink);
+        } 
+        catch (_) {
+            return;
+        }
 
         const linkToAdd = {
             description: '',
@@ -70,12 +77,22 @@ const Home = () => {
             title: '',
             url: ''
         }
+    
+        console.log(linkToAdd);
 
         setState({
             ...state,
             currentLink: '',
             links: state.links.concat([linkToAdd]),
         });
+
+        console.log(state);
+    }
+
+    const handleAdd = event => {
+        addLink(event);
+        console.log(state);
+        // handleSave(event);
     }
 
     const handleCheckboxChange = event => {
@@ -99,7 +116,8 @@ const Home = () => {
             }); 
     }
 
-    const handleSave = event => {        
+    const handleSave = event => {
+        event.preventDefault(); 
         if (state.listURL === '') {
             axios({
                 method: 'post',
@@ -162,28 +180,46 @@ const Home = () => {
             url: state.listURL + link.id + '/',
             headers: { 
                 'Authorization': 'Token ' + localStorage.getItem('token')
-            }})
-            .then(res => {
-                window.location.reload(false);
-            }); 
+            }});
+        window.location.reload(false);
     }
 
     return (
         <div className='home'>
             <div className='list-info'>
-                <input type='text' value={state.listName} onChange={handleNameChange} />
+                <input
+                    type='text'
+                    placeholder='Link List'
+                    value={state.listName}
+                    onChange={handleNameChange}
+                />
                 <br/>
-                <input type='text' value={state.listDescription} onChange={handleDescriptionChange} />
+                <input
+                    type='text'
+                    placeholder='Add description here'
+                    value={state.listDescription}
+                    onChange={handleDescriptionChange}
+                />
+                <br/>
+                <div className='public-cb'>
+                    <input 
+                        id='publicCheckbox'
+                        type='checkbox'
+                        checked={state.isPublic}
+                        onChange={handleCheckboxChange}
+                    />
+                    <label htmlFor='publicCheckbox'>Public</label>
+                </div>
             </div>
 
-            <input type='text' value={state.currentLink} onChange={handleCurrentLinkChange} />
+            <input 
+                type='url'
+                placeholder='http://www.example.com'
+                value={state.currentLink}
+                onChange={handleCurrentLinkChange} 
+            />
             <br/>
-
-            <div className='public-cb'>
-            <input id='publicCheckbox' type='checkbox' defaultChecked={state.isPublic} onChange={handleCheckboxChange} />
-            <label htmlFor='publicCheckbox'>Public</label>
-            </div>
-
+            <button type='submit' onClick={(event) => handleAdd(event)}> Add Link To List </button>
             <br/>
 
             <div>
@@ -210,7 +246,6 @@ const Home = () => {
             </div>
 
             <div>
-                <button type='submit' onClick={handleAdd}> Add Link To List </button>
                 <button type='submit' onClick={() => {navigator.clipboard.writeText(state.listURL)}}> Share List </button>
                 <button type='submit' onClick={handleDelete}> Delete List </button>
                 <button type='submit' onClick={handleSave}> Save List </button>

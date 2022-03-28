@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
-const BACKEND_URL = 'http://localhost:8000/api/users/registration/'
+const BACKEND_URL_REG = 'http://localhost:8000/api/users/registration/'
+const BACKEND_URL_LOG = 'http://localhost:8000/api/auth/'
 
 const Registration = () => {
     let navigate = useNavigate();
@@ -11,6 +12,7 @@ const Registration = () => {
     let [state, setState] = useState({
         username: '',
         password: '',
+        status: '',
     });
 
     const handleUsernameChange = event => {
@@ -32,17 +34,31 @@ const Registration = () => {
     const handleSubmit = event => {
         event.preventDefault();
 
-        axios.post(BACKEND_URL, {
+        axios.post(BACKEND_URL_REG, {
             username: state.username,
             password: state.password
         })
             .then(res => {
-                if (res.status === 201) {
-                    alert('Successfully created new user')
-                    navigate('/login');
-                } else {
-                    alert('Error: Cound not create a new user!')
-                }
+                axios.post(BACKEND_URL_LOG, {
+                    username: state.username,
+                    password: state.password
+                })
+                    .then(res => {
+                        localStorage.setItem('token', res.data.token);
+                        navigate('/profile');
+                    })
+                    .catch(error => {
+                        setState({
+                            ...state,
+                            status: 'Error: Cound not log in as the new user!',
+                        });
+                    });
+            })
+            .catch(error => {
+                setState({
+                    ...state,
+                    status: 'Error: Cound not create a new user!',
+                }); 
             });
     }
 
@@ -58,6 +74,7 @@ const Registration = () => {
                             type='text'
                             value={state.username}
                             onChange={handleUsernameChange}
+                            required
                         />
                     </label>
                     <br/>
@@ -67,11 +84,15 @@ const Registration = () => {
                             name='password'
                             type='password'
                             value={state.password}
+                            pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
+                            title='Must contain at least 8 characters - one number, one uppercase and one lowercase letter'
                             onChange={handlePasswordChange}
+                            required
                         />
                     </label>
-                    <br/>
+
                     <button type='submit'>Register</button>
+                    <p>{state.status}</p>
                 </form>
             </div>
         </div>

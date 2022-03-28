@@ -10,6 +10,7 @@ const LogIn = () =>{
     let [state, setState] = useState({
         username: '',
         password: '',
+        status: ''
     });
 
     const handleUsernameChange = event => {
@@ -35,12 +36,14 @@ const LogIn = () =>{
             password: state.password
         })
         .then(res => {
-            if (res.status === 200) {
-                localStorage.setItem('token', res.data.token);
-                navigate('/');
-            } else {
-                alert('Unable to log in.');
-            }
+            localStorage.setItem('token', res.data.token);
+            navigate('/');
+        })
+        .catch(error => {
+            setState({
+                ...state,
+                status: 'Error: Unable to log in with provided credentials!',
+            });
         });
     }
 
@@ -70,6 +73,7 @@ const LogIn = () =>{
                     </label>
                     <br/>
                     <button type='submit'>Log In</button>
+                    <p>{state.status}</p>
                 </form>
             </div>
         </div>

@@ -17,7 +17,7 @@ const Navbar = () =>{
                         <Link to='/'>Home</Link>
                     </li>
                     <li>
-                        <Link to='/profile'>Profile</Link>
+                        <Link to='/mylists'>My Lists</Link>
                     </li>
                     <li>
                         <button type='submit' onClick={() => logOut()}>Logout</button>
