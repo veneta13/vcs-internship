@@ -2,7 +2,7 @@ $font-stack: Helvetica, sans-serif;
 $primary-color: #C9DCB3;
 $secondary-color: #333;
 $tertiary-color: #7B7263;
-$radius: 4px;
+$radius: 2px;
 $text-size: 18px;
 $phone: 640px;
 $desktop: 1024px;
@@ -141,7 +141,7 @@ html {
     display: block;
 
     h2 {
-      color: $tertiary-color;
+      color: white;
       font-size: $text-size * 1.5;
     }
 
@@ -197,8 +197,30 @@ html {
       left: 10%;
       margin: 5% 0px;
       padding: 3% 0px;
+      color: $tertiary-color;
       background-color: $primary-color;
       position: relative;
+
+      h2 {
+        color: $tertiary-color;
+      }
+
+      button {
+        color: $primary-color;
+        background-color: $tertiary-color;
+      }
+
+      a:link {
+        color: $tertiary-color;
+      }
+      
+      a:visited {
+        color: $tertiary-color;
+      }
+      
+      a:hover {
+        color: white;
+      }
     }
   }
 

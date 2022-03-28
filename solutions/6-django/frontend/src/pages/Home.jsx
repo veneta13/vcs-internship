@@ -184,74 +184,84 @@ const Home = () => {
         window.location.reload(false);
     }
 
-    return (
-        <div className='home'>
-            <div className='list-info'>
-                <input
-                    type='text'
-                    placeholder='Link List'
-                    value={state.listName}
-                    onChange={handleNameChange}
-                />
-                <br/>
-                <input
-                    type='text'
-                    placeholder='Add description here'
-                    value={state.listDescription}
-                    onChange={handleDescriptionChange}
-                />
-                <br/>
-                <div className='public-cb'>
-                    <input 
-                        id='publicCheckbox'
-                        type='checkbox'
-                        checked={state.isPublic}
-                        onChange={handleCheckboxChange}
+    if (localStorage.getItem('token') !== null) {
+        return (
+            <div className='home'>
+                <div className='list-info'>
+                    <input
+                        type='text'
+                        placeholder='Link List'
+                        value={state.listName}
+                        onChange={handleNameChange}
                     />
-                    <label htmlFor='publicCheckbox'>Public</label>
+                    <br/>
+                    <input
+                        type='text'
+                        placeholder='Add description here'
+                        value={state.listDescription}
+                        onChange={handleDescriptionChange}
+                    />
+                    <br/>
+                    <div className='public-cb'>
+                        <input 
+                            id='publicCheckbox'
+                            type='checkbox'
+                            checked={state.isPublic}
+                            onChange={handleCheckboxChange}
+                        />
+                        <label htmlFor='publicCheckbox'>Public</label>
+                    </div>
+                </div>
+
+                <input 
+                    type='url'
+                    placeholder='http://www.example.com'
+                    value={state.currentLink}
+                    onChange={handleCurrentLinkChange} 
+                />
+                <br/>
+                <button type='submit' onClick={(event) => handleAdd(event)}> Add Link To List </button>
+                <br/>
+
+                <div>
+                    {
+                        state.links.map(link => {
+                            return (
+                                <div className='link-preview-box'>
+                                    <img src={link.image}/>
+                                    <br/>
+
+                                    <h2> {link.title} </h2> 
+
+                                    <a href={link.link}> 
+                                        {link.link}
+                                    </a>
+
+                                    <p> {link.description} </p>
+                                    
+                                    <button type='submit' onClick={(event) => removeLink(event, link)}> Remove link </button>
+                                </div>
+                            )}
+                        )
+                    }
+                </div>
+
+                <div>
+                    <button type='submit' onClick={() => {navigator.clipboard.writeText(state.listURL)}}> Share List </button>
+                    <button type='submit' onClick={handleDelete}> Delete List </button>
+                    <button type='submit' onClick={handleSave}> Save List </button>
                 </div>
             </div>
-
-            <input 
-                type='url'
-                placeholder='http://www.example.com'
-                value={state.currentLink}
-                onChange={handleCurrentLinkChange} 
-            />
-            <br/>
-            <button type='submit' onClick={(event) => handleAdd(event)}> Add Link To List </button>
-            <br/>
-
-            <div>
-                {
-                    state.links.map(link => {
-                        return (
-                            <div className='link-preview-box'>
-                                <img src={link.image}/>
-                                <br/>
-
-                                <h2> {link.title} </h2> 
-
-                                <a href={link.link}> 
-                                    {link.link}
-                                </a>
-
-                                <p> {link.description} </p>
-                                
-                                <button type='submit' onClick={(event) => removeLink(event, link)}> Remove link </button>
-                            </div>
-                        )}
-                    )
-                }
+        );
+    } else {
+        return (
+            <div className='home'>
+                <h2>
+                    Please log in to create lists!
+                </h2>
             </div>
-
-            <div>
-                <button type='submit' onClick={() => {navigator.clipboard.writeText(state.listURL)}}> Share List </button>
-                <button type='submit' onClick={handleDelete}> Delete List </button>
-                <button type='submit' onClick={handleSave}> Save List </button>
-            </div>
-        </div>
-    );
+        )
+    }
 }
 
 export default Home;

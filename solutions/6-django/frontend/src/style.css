@@ -17,7 +17,7 @@ html {
 
   button {
     margin: 2px 15px;
-    border-radius: 4px;
+    border-radius: 2px;
     border: none;
     color: #C9DCB3;
     background-color: #7B7263;
@@ -50,7 +50,7 @@ html {
 
   .input-box {
     border: 2px double #C9DCB3;
-    border-radius: 4px;
+    border-radius: 2px;
     background-color: #7B7263;
     box-sizing: content-box;
     width: 40%;
@@ -71,7 +71,7 @@ html {
   }
   .input-box button {
     padding: 1%;
-    border-radius: 4px;
+    border-radius: 2px;
     color: #7B7263;
     width: 30%;
     top: 70%;
@@ -83,7 +83,7 @@ html {
   }
   .input-box input {
     padding: 1%;
-    border-radius: 4px;
+    border-radius: 2px;
     color: #7B7263;
     width: 40%;
     left: 35%;
@@ -97,7 +97,7 @@ html {
 
   .home {
     border: 2px double #C9DCB3;
-    border-radius: 4px;
+    border-radius: 2px;
     background-color: #7B7263;
     width: 50%;
     top: 25%;
@@ -107,7 +107,7 @@ html {
     display: block;
   }
   .home h2 {
-    color: #7B7263;
+    color: white;
     font-size: 27px;
   }
   .home input {
@@ -149,15 +149,32 @@ html {
   }
   .home .link-preview-box {
     border: 2px double #C9DCB3;
-    border-radius: 4px;
+    border-radius: 2px;
     background-color: #7B7263;
     width: 80%;
     top: 10%;
     left: 10%;
     margin: 5% 0px;
     padding: 3% 0px;
+    color: #7B7263;
     background-color: #C9DCB3;
     position: relative;
+  }
+  .home .link-preview-box h2 {
+    color: #7B7263;
+  }
+  .home .link-preview-box button {
+    color: #C9DCB3;
+    background-color: #7B7263;
+  }
+  .home .link-preview-box a:link {
+    color: #7B7263;
+  }
+  .home .link-preview-box a:visited {
+    color: #7B7263;
+  }
+  .home .link-preview-box a:hover {
+    color: white;
   }
 
   .my-lists h1 {
@@ -176,7 +193,7 @@ html {
   }
   .my-lists .lists {
     border: 2px double #C9DCB3;
-    border-radius: 4px;
+    border-radius: 2px;
     background-color: #7B7263;
     width: 50%;
     top: 30%;
