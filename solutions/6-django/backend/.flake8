@@ -1,5 +1,7 @@
 [flake8]
 exclude =
+    ./solutions/6-django/backend/llists/migrations/,
+    ./solutions/6-django/backend/links/migrations/,
     migrations,
     __pycache__,
     manage.py,
