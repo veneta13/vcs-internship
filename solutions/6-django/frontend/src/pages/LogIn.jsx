@@ -59,6 +59,7 @@ const LogIn = () =>{
                             type='text'
                             value={state.username}
                             onChange={handleUsernameChange}
+                            required
                         />
                     </label>
                     <br/>
@@ -69,6 +70,7 @@ const LogIn = () =>{
                             type='password'
                             value={state.password}
                             onChange={handlePasswordChange}
+                            required
                         />
                     </label>
                     <br/>

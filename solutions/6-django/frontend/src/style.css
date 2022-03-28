@@ -6,185 +6,187 @@ html {
   display: flex;
 }
 
-h1 {
-  font-size: 25px;
-  color: #C9DCB3;
-  top: 15%;
-  left: 30%;
-  position: absolute;
-}
+@media screen and (min-width: 1024px) {
+  h1 {
+    font-size: 25px;
+    color: #C9DCB3;
+    top: 15%;
+    left: 30%;
+    position: absolute;
+  }
 
-button {
-  margin: 2px 15px;
-  border-radius: 4px;
-  border: none;
-  color: #C9DCB3;
-  background-color: #7B7263;
-  font: 18px Helvetica, sans-serif;
-}
+  button {
+    margin: 2px 15px;
+    border-radius: 4px;
+    border: none;
+    color: #C9DCB3;
+    background-color: #7B7263;
+    font: 18px Helvetica, sans-serif;
+  }
 
-nav {
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #C9DCB3;
-  font: 18px Helvetica, sans-serif;
-  position: fixed;
-  z-index: 100;
-}
-nav ul {
-  list-style-type: none;
-  display: flex;
-}
-nav a {
-  margin: 2px 15px;
-  color: #7B7263;
-  text-decoration: none;
-}
-nav button {
-  margin: 0px 15px;
-  color: #7B7263;
-  background-color: #C9DCB3;
-}
+  nav {
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #C9DCB3;
+    font: 18px Helvetica, sans-serif;
+    position: fixed;
+    z-index: 100;
+  }
+  nav ul {
+    list-style-type: none;
+    display: flex;
+  }
+  nav a {
+    margin: 2px 15px;
+    color: #7B7263;
+    text-decoration: none;
+  }
+  nav button {
+    margin: 0px 15px;
+    color: #7B7263;
+    background-color: #C9DCB3;
+  }
 
-.input-box {
-  border: 2px double #C9DCB3;
-  border-radius: 4px;
-  background-color: #7B7263;
-  box-sizing: content-box;
-  width: 40%;
-  height: 40%;
-  top: 25%;
-  left: 30%;
-  padding: 2%;
-  position: absolute;
-}
-.input-box p {
-  font-size: 18px;
-  color: #C9DCB3;
-  position: relative;
-}
-.input-box label {
-  color: #C9DCB3;
-  font-weight: bold;
-}
-.input-box button {
-  padding: 1%;
-  border-radius: 4px;
-  color: #7B7263;
-  width: 30%;
-  top: 70%;
-  left: 35%;
-  margin: 0;
-  border: 1px solid #C9DCB3;
-  background-color: #C9DCB3;
-  position: absolute;
-}
-.input-box input {
-  padding: 1%;
-  border-radius: 4px;
-  color: #7B7263;
-  width: 40%;
-  left: 35%;
-  margin-top: 8%;
-  margin-left: 5%;
-  border: 1px solid #C9DCB3;
-  background-color: #C9DCB3;
-  color: #7B7263;
-  display: inline-block;
-}
+  .input-box {
+    border: 2px double #C9DCB3;
+    border-radius: 4px;
+    background-color: #7B7263;
+    box-sizing: content-box;
+    width: 40%;
+    height: 40%;
+    top: 25%;
+    left: 30%;
+    padding: 2%;
+    position: absolute;
+  }
+  .input-box p {
+    font-size: 18px;
+    color: #C9DCB3;
+    position: relative;
+  }
+  .input-box label {
+    color: #C9DCB3;
+    font-weight: bold;
+  }
+  .input-box button {
+    padding: 1%;
+    border-radius: 4px;
+    color: #7B7263;
+    width: 30%;
+    top: 70%;
+    left: 35%;
+    margin: 0;
+    border: 1px solid #C9DCB3;
+    background-color: #C9DCB3;
+    position: absolute;
+  }
+  .input-box input {
+    padding: 1%;
+    border-radius: 4px;
+    color: #7B7263;
+    width: 40%;
+    left: 35%;
+    margin-top: 8%;
+    margin-left: 5%;
+    border: 1px solid #C9DCB3;
+    background-color: #C9DCB3;
+    color: #7B7263;
+    display: inline-block;
+  }
 
-.home {
-  border: 2px double #C9DCB3;
-  border-radius: 4px;
-  background-color: #7B7263;
-  width: 50%;
-  top: 25%;
-  left: 25%;
-  padding: 2%;
-  position: absolute;
-  display: block;
-}
-.home h2 {
-  color: #7B7263;
-  font-size: 27px;
-}
-.home input {
-  width: 70%;
-  left: 15%;
-  padding: 10px 5px;
-  font-size: 18px;
-  color: #C9DCB3;
-  border: none;
-  border-bottom: 1px solid #333;
-  background: none;
-  display: block;
-  position: relative;
-}
-.home img {
-  height: 20%;
-}
-.home input[type=checkbox] {
-  width: 40px;
-}
-.home label {
-  color: #C9DCB3;
-}
-.home button {
-  color: #333;
-  background-color: #C9DCB3;
-}
-.home ::placeholder {
-  color: #C9DCB3;
-}
-.home .list-info {
-  width: 100%;
-  margin: 30px 0;
-  margin-bottom: 60px;
-  position: relative;
-}
-.home .public-cb {
-  display: inline-flex;
-}
-.home .link-preview-box {
-  border: 2px double #C9DCB3;
-  border-radius: 4px;
-  background-color: #7B7263;
-  width: 80%;
-  top: 10%;
-  left: 10%;
-  margin: 5% 0px;
-  padding: 3% 0px;
-  background-color: #C9DCB3;
-  position: relative;
-}
+  .home {
+    border: 2px double #C9DCB3;
+    border-radius: 4px;
+    background-color: #7B7263;
+    width: 50%;
+    top: 25%;
+    left: 25%;
+    padding: 2%;
+    position: absolute;
+    display: block;
+  }
+  .home h2 {
+    color: #7B7263;
+    font-size: 27px;
+  }
+  .home input {
+    width: 70%;
+    left: 15%;
+    padding: 10px 5px;
+    font-size: 18px;
+    color: #C9DCB3;
+    border: none;
+    border-bottom: 1px solid #333;
+    background: none;
+    display: block;
+    position: relative;
+  }
+  .home img {
+    height: 20%;
+  }
+  .home input[type=checkbox] {
+    width: 40px;
+  }
+  .home label {
+    color: #C9DCB3;
+  }
+  .home button {
+    color: #333;
+    background-color: #C9DCB3;
+  }
+  .home ::placeholder {
+    color: #C9DCB3;
+  }
+  .home .list-info {
+    width: 100%;
+    margin: 30px 0;
+    margin-bottom: 60px;
+    position: relative;
+  }
+  .home .public-cb {
+    display: inline-flex;
+  }
+  .home .link-preview-box {
+    border: 2px double #C9DCB3;
+    border-radius: 4px;
+    background-color: #7B7263;
+    width: 80%;
+    top: 10%;
+    left: 10%;
+    margin: 5% 0px;
+    padding: 3% 0px;
+    background-color: #C9DCB3;
+    position: relative;
+  }
 
-.my-lists h1 {
-  font-size: 25px;
-  color: #C9DCB3;
-  font-size: 40px;
-  text-align: center;
-}
-.my-lists h2 {
-  font-size: 28px;
-  color: #C9DCB3;
-  text-decoration: none;
-}
-.my-lists p {
-  color: #333;
-}
-.my-lists .lists {
-  border: 2px double #C9DCB3;
-  border-radius: 4px;
-  background-color: #7B7263;
-  width: 50%;
-  top: 30%;
-  left: 25%;
-  background-color: #7B7263;
-  position: absolute;
-}
-.my-lists .list {
-  margin: 50px auto;
+  .my-lists h1 {
+    font-size: 25px;
+    color: #C9DCB3;
+    font-size: 40px;
+    text-align: center;
+  }
+  .my-lists h2 {
+    font-size: 28px;
+    color: #C9DCB3;
+    text-decoration: none;
+  }
+  .my-lists p {
+    color: #333;
+  }
+  .my-lists .lists {
+    border: 2px double #C9DCB3;
+    border-radius: 4px;
+    background-color: #7B7263;
+    width: 50%;
+    top: 30%;
+    left: 25%;
+    background-color: #7B7263;
+    position: absolute;
+  }
+  .my-lists .list {
+    margin: 50px auto;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
