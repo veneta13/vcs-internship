@@ -60,7 +60,7 @@ const Home = () => {
         });
     }
 
-    const addLink = event => {
+    const handleAdd = event => {
         event.preventDefault();
 
         try {
@@ -77,22 +77,12 @@ const Home = () => {
             title: '',
             url: ''
         }
-    
-        console.log(linkToAdd);
 
         setState({
             ...state,
             currentLink: '',
             links: state.links.concat([linkToAdd]),
         });
-
-        console.log(state);
-    }
-
-    const handleAdd = event => {
-        addLink(event);
-        console.log(state);
-        // handleSave(event);
     }
 
     const handleCheckboxChange = event => {
@@ -220,7 +210,7 @@ const Home = () => {
                     onChange={handleCurrentLinkChange} 
                 />
                 <br/>
-                <button type='submit' onClick={(event) => handleAdd(event)}> Add Link To List </button>
+                <button type='submit' onClick={handleAdd}> Add Link To List </button>
                 <br/>
 
                 <div>
